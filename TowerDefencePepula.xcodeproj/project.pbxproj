@@ -17,6 +17,7 @@
 		4810B3A821EDDD9300C66592 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4810B3A621EDDD9300C66592 /* LaunchScreen.storyboard */; };
 		4810B3B321EDDD9300C66592 /* TowerDefencePepulaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4810B3B221EDDD9300C66592 /* TowerDefencePepulaTests.swift */; };
 		4810B3BE21EDDD9300C66592 /* TowerDefencePepulaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4810B3BD21EDDD9300C66592 /* TowerDefencePepulaUITests.swift */; };
+		4810B3CC21EDDE1600C66592 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4810B3CB21EDDE1600C66592 /* GameManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		4810B3B921EDDD9300C66592 /* TowerDefencePepulaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TowerDefencePepulaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4810B3BD21EDDD9300C66592 /* TowerDefencePepulaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TowerDefencePepulaUITests.swift; sourceTree = "<group>"; };
 		4810B3BF21EDDD9300C66592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4810B3CB21EDDE1600C66592 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				4810B3A421EDDD9300C66592 /* Assets.xcassets */,
 				4810B3A621EDDD9300C66592 /* LaunchScreen.storyboard */,
 				4810B3A921EDDD9300C66592 /* Info.plist */,
+				4810B3CB21EDDE1600C66592 /* GameManager.swift */,
 			);
 			path = TowerDefencePepula;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4810B39E21EDDD9100C66592 /* GameScene.swift in Sources */,
+				4810B3CC21EDDE1600C66592 /* GameManager.swift in Sources */,
 				4810B3A021EDDD9100C66592 /* GameViewController.swift in Sources */,
 				4810B39821EDDD9100C66592 /* AppDelegate.swift in Sources */,
 			);
