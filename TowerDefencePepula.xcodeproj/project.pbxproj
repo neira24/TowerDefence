@@ -1,0 +1,603 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4810B39821EDDD9100C66592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4810B39721EDDD9100C66592 /* AppDelegate.swift */; };
+		4810B39A21EDDD9100C66592 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4810B39921EDDD9100C66592 /* GameScene.sks */; };
+		4810B39C21EDDD9100C66592 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4810B39B21EDDD9100C66592 /* Actions.sks */; };
+		4810B39E21EDDD9100C66592 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4810B39D21EDDD9100C66592 /* GameScene.swift */; };
+		4810B3A021EDDD9100C66592 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4810B39F21EDDD9100C66592 /* GameViewController.swift */; };
+		4810B3A321EDDD9100C66592 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4810B3A121EDDD9100C66592 /* Main.storyboard */; };
+		4810B3A521EDDD9300C66592 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4810B3A421EDDD9300C66592 /* Assets.xcassets */; };
+		4810B3A821EDDD9300C66592 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4810B3A621EDDD9300C66592 /* LaunchScreen.storyboard */; };
+		4810B3B321EDDD9300C66592 /* TowerDefencePepulaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4810B3B221EDDD9300C66592 /* TowerDefencePepulaTests.swift */; };
+		4810B3BE21EDDD9300C66592 /* TowerDefencePepulaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4810B3BD21EDDD9300C66592 /* TowerDefencePepulaUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4810B3AF21EDDD9300C66592 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4810B38C21EDDD9100C66592 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4810B39321EDDD9100C66592;
+			remoteInfo = TowerDefencePepula;
+		};
+		4810B3BA21EDDD9300C66592 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4810B38C21EDDD9100C66592 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4810B39321EDDD9100C66592;
+			remoteInfo = TowerDefencePepula;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4810B39421EDDD9100C66592 /* TowerDefencePepula.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TowerDefencePepula.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4810B39721EDDD9100C66592 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4810B39921EDDD9100C66592 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		4810B39B21EDDD9100C66592 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
+		4810B39D21EDDD9100C66592 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		4810B39F21EDDD9100C66592 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		4810B3A221EDDD9100C66592 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4810B3A421EDDD9300C66592 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4810B3A721EDDD9300C66592 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4810B3A921EDDD9300C66592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4810B3AE21EDDD9300C66592 /* TowerDefencePepulaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TowerDefencePepulaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4810B3B221EDDD9300C66592 /* TowerDefencePepulaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TowerDefencePepulaTests.swift; sourceTree = "<group>"; };
+		4810B3B421EDDD9300C66592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4810B3B921EDDD9300C66592 /* TowerDefencePepulaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TowerDefencePepulaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4810B3BD21EDDD9300C66592 /* TowerDefencePepulaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TowerDefencePepulaUITests.swift; sourceTree = "<group>"; };
+		4810B3BF21EDDD9300C66592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4810B39121EDDD9100C66592 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4810B3AB21EDDD9300C66592 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4810B3B621EDDD9300C66592 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4810B38B21EDDD9100C66592 = {
+			isa = PBXGroup;
+			children = (
+				4810B39621EDDD9100C66592 /* TowerDefencePepula */,
+				4810B3B121EDDD9300C66592 /* TowerDefencePepulaTests */,
+				4810B3BC21EDDD9300C66592 /* TowerDefencePepulaUITests */,
+				4810B39521EDDD9100C66592 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4810B39521EDDD9100C66592 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4810B39421EDDD9100C66592 /* TowerDefencePepula.app */,
+				4810B3AE21EDDD9300C66592 /* TowerDefencePepulaTests.xctest */,
+				4810B3B921EDDD9300C66592 /* TowerDefencePepulaUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4810B39621EDDD9100C66592 /* TowerDefencePepula */ = {
+			isa = PBXGroup;
+			children = (
+				4810B39721EDDD9100C66592 /* AppDelegate.swift */,
+				4810B39921EDDD9100C66592 /* GameScene.sks */,
+				4810B39B21EDDD9100C66592 /* Actions.sks */,
+				4810B39D21EDDD9100C66592 /* GameScene.swift */,
+				4810B39F21EDDD9100C66592 /* GameViewController.swift */,
+				4810B3A121EDDD9100C66592 /* Main.storyboard */,
+				4810B3A421EDDD9300C66592 /* Assets.xcassets */,
+				4810B3A621EDDD9300C66592 /* LaunchScreen.storyboard */,
+				4810B3A921EDDD9300C66592 /* Info.plist */,
+			);
+			path = TowerDefencePepula;
+			sourceTree = "<group>";
+		};
+		4810B3B121EDDD9300C66592 /* TowerDefencePepulaTests */ = {
+			isa = PBXGroup;
+			children = (
+				4810B3B221EDDD9300C66592 /* TowerDefencePepulaTests.swift */,
+				4810B3B421EDDD9300C66592 /* Info.plist */,
+			);
+			path = TowerDefencePepulaTests;
+			sourceTree = "<group>";
+		};
+		4810B3BC21EDDD9300C66592 /* TowerDefencePepulaUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4810B3BD21EDDD9300C66592 /* TowerDefencePepulaUITests.swift */,
+				4810B3BF21EDDD9300C66592 /* Info.plist */,
+			);
+			path = TowerDefencePepulaUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4810B39321EDDD9100C66592 /* TowerDefencePepula */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4810B3C221EDDD9300C66592 /* Build configuration list for PBXNativeTarget "TowerDefencePepula" */;
+			buildPhases = (
+				4810B39021EDDD9100C66592 /* Sources */,
+				4810B39121EDDD9100C66592 /* Frameworks */,
+				4810B39221EDDD9100C66592 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TowerDefencePepula;
+			productName = TowerDefencePepula;
+			productReference = 4810B39421EDDD9100C66592 /* TowerDefencePepula.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4810B3AD21EDDD9300C66592 /* TowerDefencePepulaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4810B3C521EDDD9300C66592 /* Build configuration list for PBXNativeTarget "TowerDefencePepulaTests" */;
+			buildPhases = (
+				4810B3AA21EDDD9300C66592 /* Sources */,
+				4810B3AB21EDDD9300C66592 /* Frameworks */,
+				4810B3AC21EDDD9300C66592 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4810B3B021EDDD9300C66592 /* PBXTargetDependency */,
+			);
+			name = TowerDefencePepulaTests;
+			productName = TowerDefencePepulaTests;
+			productReference = 4810B3AE21EDDD9300C66592 /* TowerDefencePepulaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4810B3B821EDDD9300C66592 /* TowerDefencePepulaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4810B3C821EDDD9300C66592 /* Build configuration list for PBXNativeTarget "TowerDefencePepulaUITests" */;
+			buildPhases = (
+				4810B3B521EDDD9300C66592 /* Sources */,
+				4810B3B621EDDD9300C66592 /* Frameworks */,
+				4810B3B721EDDD9300C66592 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4810B3BB21EDDD9300C66592 /* PBXTargetDependency */,
+			);
+			name = TowerDefencePepulaUITests;
+			productName = TowerDefencePepulaUITests;
+			productReference = 4810B3B921EDDD9300C66592 /* TowerDefencePepulaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4810B38C21EDDD9100C66592 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = "Lauri Roomere";
+				TargetAttributes = {
+					4810B39321EDDD9100C66592 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					4810B3AD21EDDD9300C66592 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 4810B39321EDDD9100C66592;
+					};
+					4810B3B821EDDD9300C66592 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 4810B39321EDDD9100C66592;
+					};
+				};
+			};
+			buildConfigurationList = 4810B38F21EDDD9100C66592 /* Build configuration list for PBXProject "TowerDefencePepula" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4810B38B21EDDD9100C66592;
+			productRefGroup = 4810B39521EDDD9100C66592 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4810B39321EDDD9100C66592 /* TowerDefencePepula */,
+				4810B3AD21EDDD9300C66592 /* TowerDefencePepulaTests */,
+				4810B3B821EDDD9300C66592 /* TowerDefencePepulaUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4810B39221EDDD9100C66592 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4810B3A321EDDD9100C66592 /* Main.storyboard in Resources */,
+				4810B39A21EDDD9100C66592 /* GameScene.sks in Resources */,
+				4810B3A521EDDD9300C66592 /* Assets.xcassets in Resources */,
+				4810B3A821EDDD9300C66592 /* LaunchScreen.storyboard in Resources */,
+				4810B39C21EDDD9100C66592 /* Actions.sks in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4810B3AC21EDDD9300C66592 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4810B3B721EDDD9300C66592 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4810B39021EDDD9100C66592 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4810B39E21EDDD9100C66592 /* GameScene.swift in Sources */,
+				4810B3A021EDDD9100C66592 /* GameViewController.swift in Sources */,
+				4810B39821EDDD9100C66592 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4810B3AA21EDDD9300C66592 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4810B3B321EDDD9300C66592 /* TowerDefencePepulaTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4810B3B521EDDD9300C66592 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4810B3BE21EDDD9300C66592 /* TowerDefencePepulaUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4810B3B021EDDD9300C66592 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4810B39321EDDD9100C66592 /* TowerDefencePepula */;
+			targetProxy = 4810B3AF21EDDD9300C66592 /* PBXContainerItemProxy */;
+		};
+		4810B3BB21EDDD9300C66592 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4810B39321EDDD9100C66592 /* TowerDefencePepula */;
+			targetProxy = 4810B3BA21EDDD9300C66592 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4810B3A121EDDD9100C66592 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4810B3A221EDDD9100C66592 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4810B3A621EDDD9300C66592 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4810B3A721EDDD9300C66592 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4810B3C021EDDD9300C66592 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		4810B3C121EDDD9300C66592 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4810B3C321EDDD9300C66592 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 38L5R62CES;
+				INFOPLIST_FILE = TowerDefencePepula/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = lrgame.TowerDefencePepula;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4810B3C421EDDD9300C66592 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 38L5R62CES;
+				INFOPLIST_FILE = TowerDefencePepula/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = lrgame.TowerDefencePepula;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4810B3C621EDDD9300C66592 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 38L5R62CES;
+				INFOPLIST_FILE = TowerDefencePepulaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = lrgame.TowerDefencePepulaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TowerDefencePepula.app/TowerDefencePepula";
+			};
+			name = Debug;
+		};
+		4810B3C721EDDD9300C66592 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 38L5R62CES;
+				INFOPLIST_FILE = TowerDefencePepulaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = lrgame.TowerDefencePepulaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TowerDefencePepula.app/TowerDefencePepula";
+			};
+			name = Release;
+		};
+		4810B3C921EDDD9300C66592 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 38L5R62CES;
+				INFOPLIST_FILE = TowerDefencePepulaUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = lrgame.TowerDefencePepulaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TowerDefencePepula;
+			};
+			name = Debug;
+		};
+		4810B3CA21EDDD9300C66592 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 38L5R62CES;
+				INFOPLIST_FILE = TowerDefencePepulaUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = lrgame.TowerDefencePepulaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TowerDefencePepula;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4810B38F21EDDD9100C66592 /* Build configuration list for PBXProject "TowerDefencePepula" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4810B3C021EDDD9300C66592 /* Debug */,
+				4810B3C121EDDD9300C66592 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4810B3C221EDDD9300C66592 /* Build configuration list for PBXNativeTarget "TowerDefencePepula" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4810B3C321EDDD9300C66592 /* Debug */,
+				4810B3C421EDDD9300C66592 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4810B3C521EDDD9300C66592 /* Build configuration list for PBXNativeTarget "TowerDefencePepulaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4810B3C621EDDD9300C66592 /* Debug */,
+				4810B3C721EDDD9300C66592 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4810B3C821EDDD9300C66592 /* Build configuration list for PBXNativeTarget "TowerDefencePepulaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4810B3C921EDDD9300C66592 /* Debug */,
+				4810B3CA21EDDD9300C66592 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4810B38C21EDDD9100C66592 /* Project object */;
+}
