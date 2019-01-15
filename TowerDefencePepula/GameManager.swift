@@ -32,6 +32,8 @@ class GameManager{
     func renderChange(){
         
         
+        
+        
     }
     
     

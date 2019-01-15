@@ -9,6 +9,13 @@
 import SpriteKit
 import GameplayKit
 
+enum SquareType{
+    case Empty
+    case Tower
+    case Castle
+    case Destroyed
+}
+
 class GameScene: SKScene {
     
     private var label : SKLabelNode?
@@ -19,19 +26,19 @@ class GameScene: SKScene {
     var game:GameManager!
     var currentScore: SKLabelNode!
     var gameBG: SKShapeNode!
-    var gameArray: [(node:SKShapeNode, x:Int,y:Int)]=[]
-    
+    var gameArray: [(node:SKShapeNode, x:Int,y:Int,type: SquareType)]=[]
+
     override func didMove(to view: SKView) {
        
         // Get label node from scene and store it for use later
        initializeMenu()
        game=GameManager(scene:self)
        initializeGameView()
+        
+        
      
     }
-    
-    
-    
+ 
     
     
    /* func touchDown(atPoint pos : CGPoint) {
@@ -81,7 +88,7 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
-        game.update(time:currentTime)
+        game.update(time: currentTime)
     }
     
     private func initializeMenu() {
@@ -116,6 +123,7 @@ class GameScene: SKScene {
         playButton.path = path
         self.addChild(playButton)
     }
+  
     override func touchesBegan(_ touches: Set<UITouch>, with event:UIEvent?){
         
         for touch in touches{
@@ -125,6 +133,33 @@ class GameScene: SKScene {
             for node in touchedNode{
                 if node.name=="play_button"{
                     startGame()
+                }else{
+                    //19:39
+                    print("Touched at x: ",location.x,"y: ",location.y)
+                    for (node,_,_,type) in gameArray{
+                        var type=type
+                        if(node.contains(location)){
+                            
+                            if(type==SquareType.Empty){
+                             node.fillColor=SKColor.red
+                             
+                               type =  SquareType.Tower
+                             
+                               continue
+                            }
+                            if(type==SquareType.Tower){
+                                node.fillColor=SKColor.blue
+                                
+                                type = SquareType.Castle
+                            }
+                        }
+                        
+                       
+                            
+                        
+                        
+                    }
+                    
                 }
             }
             
@@ -194,7 +229,7 @@ class GameScene: SKScene {
                 cellNode.strokeColor=SKColor.black
                 cellNode.zPosition=2
                 cellNode.position=CGPoint(x: x, y: y)
-                gameArray.append((node:cellNode , x: i, y: j))
+                gameArray.append((node:cellNode , x: i, y: j,type:SquareType.Empty))
                 gameBG.addChild(cellNode)
                 x+=cellWidth
                 
