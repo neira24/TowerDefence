@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TowerDefencePepula/GameScene.swift"
-            timestampString = "569255365.71916"
+            timestampString = "569345394.666477"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
             landmarkName = "createGameBoard(width:height:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -22,31 +22,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TowerDefencePepula/GameScene.swift"
-            timestampString = "569255365.7198631"
+            timestampString = "569345394.667058"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
-            landmarkName = "touchesBegan(_:with:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TowerDefencePepula/GameScene.swift"
-            timestampString = "569255365.72015"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
             landmarkName = "touchesBegan(_:with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,12 +42,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TowerDefencePepula/GameScene.swift"
-            timestampString = "569255365.720471"
+            timestampString = "569345394.667408"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
             landmarkName = "touchesBegan(_:with:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TowerDefencePepula/GameScene.swift"
+            timestampString = "569345394.667832"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "processContacts(forUpdate:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TowerDefencePepula/GameScene.swift"
+            timestampString = "569345394.668075"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "processContacts(forUpdate:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -74,28 +90,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TowerDefencePepula/GameScene.swift"
-            timestampString = "569255365.720705"
+            timestampString = "569345394.668311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
-            landmarkName = "touchesBegan(_:with:)"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "didBegin(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TowerDefencePepula/GameScene.swift"
-            timestampString = "569255365.720976"
+            timestampString = "569345394.668636"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
-            landmarkName = "touchesBegan(_:with:)"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "processContacts(forUpdate:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

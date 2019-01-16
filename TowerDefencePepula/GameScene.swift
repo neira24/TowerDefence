@@ -16,7 +16,13 @@ enum SquareType{
     case Destroyed
 }
 
-class GameScene: SKScene {
+enum BulletType {
+    case towerFired
+    case invaderFired
+}
+//https://www.freesoundeffects.com/free-sounds/cannon-10077/
+
+class GameScene: SKScene,SKPhysicsContactDelegate{
     
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
@@ -26,15 +32,28 @@ class GameScene: SKScene {
     var game:GameManager!
     var currentScore: SKLabelNode!
     var gameBG: SKShapeNode!
-    var gameArray: [(node:SKShapeNode, x:Int,y:Int,type: SquareType)]=[]
+    var gameArray: [(node:SKShapeNode, x:Int,y:Int,type: SquareType,health:Int?)]=[]
+    let kTowerFiredBulletName = "towerFiredBullet"
+    let kInvaderFiredBulletName = "invaderFiredBullet"
+    let kBulletSize = CGSize(width:4, height: 8)
+    var contactQueue = [SKPhysicsContact]()
+    
+    let kInvaderCategory: UInt32 = 0x1 << 0
+    let kShipFiredBulletCategory: UInt32 = 0x1 << 1
+    let kShipCategory: UInt32 = 0x1 << 2
+    let kSceneEdgeCategory: UInt32 = 0x1 << 3
+    let kInvaderFiredBulletCategory: UInt32 = 0x1 << 4
 
+    
+    
     override func didMove(to view: SKView) {
        
         // Get label node from scene and store it for use later
+       physicsWorld.contactDelegate = self
        initializeMenu()
        game=GameManager(scene:self)
        initializeGameView()
-        
+     
         
      
     }
@@ -77,18 +96,42 @@ class GameScene: SKScene {
         for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
+    
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }*/
     
+    func didBegin(_ contact: SKPhysicsContact) {
+        //contactQueue.append(contact)
+        
+        if contact.bodyA.node?.name=="Tower" && contact.bodyB.node?.name == kTowerFiredBulletName {
+            
+            print("Contact")
+        }
+        
+    }
+    
+    
+    func handle(_ contact: SKPhysicsContact) {
+      
+     
+    }
+    func processContacts(forUpdate currentTime: CFTimeInterval) {
+        for contact in contactQueue {
+            handle(contact)
+            
+            if let index = contactQueue.index(of: contact) {
+                contactQueue.remove(at: index)
+            }
+        }
+    }
+
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         game.update(time: currentTime)
+        processContacts(forUpdate: currentTime)
     }
     
     private func initializeMenu() {
@@ -125,50 +168,99 @@ class GameScene: SKScene {
     }
   
     override func touchesBegan(_ touches: Set<UITouch>, with event:UIEvent?){
-        
+       
         for touch in touches{
             
             let location=touch.location(in: self)
             let touchedNode=self.nodes(at:location)
+              print("Touched at x: ",location.x,"y: ",location.y)
             for node in touchedNode{
                 if node.name=="play_button"{
                     startGame()
                 }else{
                     //19:39
-                    print("Touched at x: ",location.x,"y: ",location.y)
-                    for (node,_,_,type) in gameArray{
-                        var type=type
-                        if(node.contains(location)){
-                            
-                            if(type==SquareType.Empty){
-                             node.fillColor=SKColor.red
-                             
-                               type =  SquareType.Tower
-                             
-                               continue
-                            }
-                            if(type==SquareType.Tower){
-                                node.fillColor=SKColor.blue
-                                
-                                type = SquareType.Castle
-                            }
-                        }
+                  
+                  
+                    
+                }
+            }
+            for (node,x,y,type,health) in gameArray{
+                
+                let index=gameArray.firstIndex { (item) -> Bool in
+                    
+                    return item==(node,x,y,type,health)
+                }
+                
+                
+                
+                if(node.contains(location)){
+                    if(type==SquareType.Tower){
+                        node.fillColor=SKColor.blue
+                        gameArray.remove(at: index!)
+                        gameArray.insert((node,x,y,SquareType.Castle,health), at: index!)
+                        node.name="Tower"
+                        let bullet=makeBullet(ofType: .towerFired)
+                        bullet.position=CGPoint(
+                            x:location.x,
+                            y:location.y+node.frame.height-bullet.frame.size.height / 2
+                        )
                         
-                       
+                        let bulletDestination=CGPoint(
+                            x:location.x,
+                            y:frame.size.height+bullet.frame.size.height/2
                             
+                        
+                        )
+                        
+                        fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration: 1.0, andSoundFileName: "Cannon+2.wav")
+                        
+                        break
                         
                         
                     }
                     
+                    if(type==SquareType.Castle){
+                        
+                        let bullet=makeBullet(ofType: .towerFired)
+                        bullet.position=CGPoint(
+                            x:location.x,
+                            y:location.y+node.frame.height-bullet.frame.size.height / 2
+                        )
+                        
+                        let bulletDestination=CGPoint(
+                            x:location.x,
+                            y:frame.size.height+bullet.frame.size.height/2
+                            
+                            
+                        )
+                        
+                        fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration: 1.0, andSoundFileName: "Cannon+2.wav")
+                        
+                        
+                    }
+                    if(type==SquareType.Empty){
+                        node.fillColor=SKColor.red
+                        gameArray.remove(at: index!)
+                        gameArray.insert((node,x,y,SquareType.Tower,health), at: index!)
+                        break
+                    }
+                    
                 }
-            }
+            
+            
+            
+        }
+      
+        
+            
+            
+            
             
             
         }
         
-        
-        
     }
+    
     private func startGame(){
         
         print("Start game")
@@ -229,8 +321,16 @@ class GameScene: SKScene {
                 cellNode.strokeColor=SKColor.black
                 cellNode.zPosition=2
                 cellNode.position=CGPoint(x: x, y: y)
-                gameArray.append((node:cellNode , x: i, y: j,type:SquareType.Empty))
-                gameBG.addChild(cellNode)
+                cellNode.name="Empty"
+                cellNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: cellWidth, height: cellWidth))
+                cellNode.physicsBody!.isDynamic=false
+                cellNode.physicsBody!.categoryBitMask=kShipCategory
+                cellNode.physicsBody!.contactTestBitMask=kShipFiredBulletCategory
+                cellNode.physicsBody!.collisionBitMask=0
+                
+                gameArray.append((node:cellNode , x: i, y: j,type:SquareType.Empty,health:100))
+                self.addChild(cellNode)
+            
                 x+=cellWidth
                 
                 
@@ -246,4 +346,50 @@ class GameScene: SKScene {
         
     }
     
+    func makeBullet(ofType bulletType: BulletType) -> SKNode {
+        var bullet: SKNode
+        
+        switch bulletType {
+        case .towerFired:
+            bullet = SKSpriteNode(color: SKColor.red, size: kBulletSize)
+            bullet.name = kTowerFiredBulletName
+            bullet.physicsBody=SKPhysicsBody(rectangleOf: CGSize(width: 10, height: 10))
+            bullet.physicsBody?.isDynamic=true
+            bullet.physicsBody?.categoryBitMask=kShipFiredBulletCategory
+            bullet.physicsBody?.contactTestBitMask=kShipCategory
+            bullet.physicsBody?.collisionBitMask=kShipCategory
+        case .invaderFired:
+            bullet = SKSpriteNode(color: SKColor.magenta, size: kBulletSize)
+            bullet.name = kInvaderFiredBulletName
+            break
+        }
+        
+        return bullet
+    }
+    
+    
+    func fireBullet(bullet: SKNode, toDestination destination: CGPoint, withDuration duration: CFTimeInterval, andSoundFileName soundName: String) {
+        // 1
+        let bulletAction = SKAction.sequence([
+            SKAction.move(to: destination, duration: duration),
+            SKAction.wait(forDuration: 3.0 / 60.0),
+            SKAction.removeFromParent()
+            ])
+        
+        // 2
+        let soundAction = SKAction.playSoundFileNamed(soundName, waitForCompletion: true)
+        
+        // 3
+        bullet.run(SKAction.group([bulletAction, soundAction]))
+        
+        // 4
+       
+        gameBG.addChild(bullet)
+    }
+    
+    
+    
+    
+  
+
 }
