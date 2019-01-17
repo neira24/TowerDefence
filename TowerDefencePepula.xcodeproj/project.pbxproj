@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		480C228421EF0AAD0009ED89 /* Cannon+2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 480C228321EF0AAD0009ED89 /* Cannon+2.wav */; };
+		480DF40221F06BEA00DA1DAA /* InvaderTank_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 480DF40121F06BEA00DA1DAA /* InvaderTank_01.png */; };
+		480DF40421F06BF000DA1DAA /* InvaderTank_00.png in Resources */ = {isa = PBXBuildFile; fileRef = 480DF40321F06BF000DA1DAA /* InvaderTank_00.png */; };
 		4810B39821EDDD9100C66592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4810B39721EDDD9100C66592 /* AppDelegate.swift */; };
 		4810B39A21EDDD9100C66592 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4810B39921EDDD9100C66592 /* GameScene.sks */; };
 		4810B39C21EDDD9100C66592 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4810B39B21EDDD9100C66592 /* Actions.sks */; };
@@ -19,6 +21,9 @@
 		4810B3B321EDDD9300C66592 /* TowerDefencePepulaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4810B3B221EDDD9300C66592 /* TowerDefencePepulaTests.swift */; };
 		4810B3BE21EDDD9300C66592 /* TowerDefencePepulaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4810B3BD21EDDD9300C66592 /* TowerDefencePepulaUITests.swift */; };
 		4810B3CC21EDDE1600C66592 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4810B3CB21EDDE1600C66592 /* GameManager.swift */; };
+		4856C52E21F0BDA00059666E /* Tower_00.png in Resources */ = {isa = PBXBuildFile; fileRef = 4856C52D21F0BDA00059666E /* Tower_00.png */; };
+		4856C53021F0BFDB0059666E /* Castle_00.png in Resources */ = {isa = PBXBuildFile; fileRef = 4856C52F21F0BFDB0059666E /* Castle_00.png */; };
+		4856C53221F0C02A0059666E /* DoubleBanger_00.png in Resources */ = {isa = PBXBuildFile; fileRef = 4856C53121F0C02A0059666E /* DoubleBanger_00.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +45,8 @@
 
 /* Begin PBXFileReference section */
 		480C228321EF0AAD0009ED89 /* Cannon+2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Cannon+2.wav"; sourceTree = "<group>"; };
+		480DF40121F06BEA00DA1DAA /* InvaderTank_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InvaderTank_01.png; sourceTree = "<group>"; };
+		480DF40321F06BF000DA1DAA /* InvaderTank_00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InvaderTank_00.png; sourceTree = "<group>"; };
 		4810B39421EDDD9100C66592 /* TowerDefencePepula.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TowerDefencePepula.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4810B39721EDDD9100C66592 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4810B39921EDDD9100C66592 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -57,6 +64,9 @@
 		4810B3BD21EDDD9300C66592 /* TowerDefencePepulaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TowerDefencePepulaUITests.swift; sourceTree = "<group>"; };
 		4810B3BF21EDDD9300C66592 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4810B3CB21EDDE1600C66592 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+		4856C52D21F0BDA00059666E /* Tower_00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tower_00.png; sourceTree = "<group>"; };
+		4856C52F21F0BFDB0059666E /* Castle_00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Castle_00.png; sourceTree = "<group>"; };
+		4856C53121F0C02A0059666E /* DoubleBanger_00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoubleBanger_00.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,9 +94,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		480DF3FF21F06BC600DA1DAA /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				480DF40021F06BCE00DA1DAA /* Graphic */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		480DF40021F06BCE00DA1DAA /* Graphic */ = {
+			isa = PBXGroup;
+			children = (
+				4856C53121F0C02A0059666E /* DoubleBanger_00.png */,
+				4856C52F21F0BFDB0059666E /* Castle_00.png */,
+				4856C52D21F0BDA00059666E /* Tower_00.png */,
+				480DF40121F06BEA00DA1DAA /* InvaderTank_01.png */,
+				480DF40321F06BF000DA1DAA /* InvaderTank_00.png */,
+			);
+			path = Graphic;
+			sourceTree = "<group>";
+		};
 		4810B38B21EDDD9100C66592 = {
 			isa = PBXGroup;
 			children = (
+				480DF3FF21F06BC600DA1DAA /* Assets */,
 				4810B39621EDDD9100C66592 /* TowerDefencePepula */,
 				4810B3B121EDDD9300C66592 /* TowerDefencePepulaTests */,
 				4810B3BC21EDDD9300C66592 /* TowerDefencePepulaUITests */,
@@ -246,8 +277,13 @@
 			files = (
 				480C228421EF0AAD0009ED89 /* Cannon+2.wav in Resources */,
 				4810B3A321EDDD9100C66592 /* Main.storyboard in Resources */,
+				4856C52E21F0BDA00059666E /* Tower_00.png in Resources */,
 				4810B39A21EDDD9100C66592 /* GameScene.sks in Resources */,
+				480DF40421F06BF000DA1DAA /* InvaderTank_00.png in Resources */,
 				4810B3A521EDDD9300C66592 /* Assets.xcassets in Resources */,
+				4856C53221F0C02A0059666E /* DoubleBanger_00.png in Resources */,
+				480DF40221F06BEA00DA1DAA /* InvaderTank_01.png in Resources */,
+				4856C53021F0BFDB0059666E /* Castle_00.png in Resources */,
 				4810B3A821EDDD9300C66592 /* LaunchScreen.storyboard in Resources */,
 				4810B39C21EDDD9100C66592 /* Actions.sks in Resources */,
 			);
