@@ -25,6 +25,7 @@
 - [ ] Handle all collisions
   - [ ] Different types of Ammo generate different damage, check for Ammo on collision
   - [ ] 
+- [ ] Score system
 - [ ] ???
 
 ## Idea
