@@ -24,6 +24,7 @@
 		4856C52E21F0BDA00059666E /* Tower_00.png in Resources */ = {isa = PBXBuildFile; fileRef = 4856C52D21F0BDA00059666E /* Tower_00.png */; };
 		4856C53021F0BFDB0059666E /* Castle_00.png in Resources */ = {isa = PBXBuildFile; fileRef = 4856C52F21F0BFDB0059666E /* Castle_00.png */; };
 		4856C53221F0C02A0059666E /* DoubleBanger_00.png in Resources */ = {isa = PBXBuildFile; fileRef = 4856C53121F0C02A0059666E /* DoubleBanger_00.png */; };
+		4856C53421F0C69D0059666E /* towerDefense_tile157.png in Resources */ = {isa = PBXBuildFile; fileRef = 4856C53321F0C69D0059666E /* towerDefense_tile157.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		4856C52D21F0BDA00059666E /* Tower_00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tower_00.png; sourceTree = "<group>"; };
 		4856C52F21F0BFDB0059666E /* Castle_00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Castle_00.png; sourceTree = "<group>"; };
 		4856C53121F0C02A0059666E /* DoubleBanger_00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoubleBanger_00.png; sourceTree = "<group>"; };
+		4856C53321F0C69D0059666E /* towerDefense_tile157.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = towerDefense_tile157.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 		480DF40021F06BCE00DA1DAA /* Graphic */ = {
 			isa = PBXGroup;
 			children = (
+				4856C53321F0C69D0059666E /* towerDefense_tile157.png */,
 				4856C53121F0C02A0059666E /* DoubleBanger_00.png */,
 				4856C52F21F0BFDB0059666E /* Castle_00.png */,
 				4856C52D21F0BDA00059666E /* Tower_00.png */,
@@ -275,6 +278,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4856C53421F0C69D0059666E /* towerDefense_tile157.png in Resources */,
 				480C228421EF0AAD0009ED89 /* Cannon+2.wav in Resources */,
 				4810B3A321EDDD9100C66592 /* Main.storyboard in Resources */,
 				4856C52E21F0BDA00059666E /* Tower_00.png in Resources */,

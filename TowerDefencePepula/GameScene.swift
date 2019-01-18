@@ -51,6 +51,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
     var game:GameManager!
     var currentScore: SKLabelNode!
     var gameBG: SKShapeNode!
+    var invadersArray:[SKNode]=[]
     var gameArray: [(node:SKShapeNode, x:Int,y:Int,type: SquareType,health:Int?)]=[]
     let kTowerFiredBulletName = "towerFiredBullet"
     let kInvaderFiredBulletName = "invaderFiredBullet"
@@ -77,50 +78,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
      
     }
  
-    
-    
-   /* func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
-        
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-    }
-    
-    
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }*/
-    
     func didBegin(_ contact: SKPhysicsContact) {
         //contactQueue.append(contact)
         print(contact.bodyA.node?.name!)
@@ -133,7 +90,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
             
             if(health==0){
               contact.bodyA.node?.removeFromParent()
-              
+              print("Dealloc tank bf count",self.invadersArray.count)
+             self.invadersArray.remove(at: 0);
+             print("Dealloc tank count af",self.invadersArray.count)
             }else{
               health=health-10
               contact.bodyA.node?.userData?.setValue(health, forKey: "health")
@@ -197,7 +156,35 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         playButton.path = path
         self.addChild(playButton)
     }
-  
+    //Remove from here
+    
+    @objc func loadInvadersToScene(){
+        let countOfInvaders=Int.random(in: 3 ... 10)
+        
+        for _ in 0...countOfInvaders{
+            var tank: SKNode
+            let randomX=Int.random(in: 0 ... 300)
+            let randomY=Int.random(in: 0 ... 400)
+         
+            tank=self.makeInvader(ofType: InvaderType.tank,pos: CGPoint(x:randomX, y:randomY ))
+            tank.position=CGPoint(x:randomX, y:randomY )
+           // gameArray.append((tank as! SKShapeNode,2,2,SquareType.Empty,100))
+           // gameBG.addChild(tank)
+            
+            gameBG.addChild(tank)
+        
+          
+            invadersArray.append(tank)
+        
+        }
+        
+        
+        
+        
+        
+    }
+    
+    
     func loadInvaderTextures(ofType invaderType: InvaderType) -> [SKTexture] {
         
         var prefix: String
@@ -236,7 +223,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                 SKTexture(imageNamed: String(format: "%@_01.png", prefix))]
     }
     
-    func makeInvader(ofType invaderType:InvaderType)->SKNode{
+    func makeInvader(ofType invaderType:InvaderType, pos:CGPoint)->SKNode{
         
         let invaderTextures = loadInvaderTextures(ofType: invaderType)
         
@@ -244,6 +231,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         let invader = SKSpriteNode(texture: invaderTextures[0])
         invader.name = InvaderType.name
         invader.userData=NSMutableDictionary()
+        invader.position=pos
+        
         invader.userData?.setValue(100, forKey: "health")
         
         // 3
@@ -256,8 +245,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         invader.physicsBody!.contactTestBitMask = kShipFiredBulletCategory
         invader.physicsBody!.collisionBitMask = 0
         
-        
-        
+   
         return invader
         
         
@@ -392,10 +380,12 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
             self.gameBG.run(SKAction.scale(to: 1, duration: 0.4))
             self.currentScore.run(SKAction.scale(to: 1, duration: 0.4))
             self.game.initGame()
+           
             
         }
-        
-        
+        perform(#selector(loadInvadersToScene), with: nil, afterDelay: 3)
+        //Timer.scheduledTimer(timeInterval: TimeInterval(3), target: self, selector:Selector("loadInvadersToScene:"), userInfo:nil, repeats: false)
+     
     }
     
     private func initializeGameView(){
@@ -414,37 +404,20 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         let rect=CGRect(x: -width/2, y: -heigt/2, width: width, height: heigt)
         gameBG=SKShapeNode(rect: rect, cornerRadius:0.02)
         gameBG.fillColor=SKColor.green
+        gameBG.fillTexture=SKTexture(image: UIImage(named:"towerDefense_tile157.png")!)
         gameBG.zPosition=2
         gameBG.isHidden=true
         self.addChild(gameBG)
         createGameBoard(width:Int(width),height:Int(heigt))
-        let tank=self.makeInvader(ofType: InvaderType.tank)
-        tank.position=CGPoint(x: 100, y: 100)
         
-        gameBG.addChild(tank)
-        
-        let bullet=makeBullet(ofType: .invaderFired)
-        bullet.position=CGPoint(
-            x:tank.position.x,
-            y:tank.position.y+tank.frame.height-bullet.frame.size.height / 2
-        )
-        
-        let bulletDestination=CGPoint(
-            x:tank.position.x,
-            y:frame.size.height+bullet.frame.size.height/2
-            
-            
-        )
-        
-        fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration: 1.0, andSoundFileName: "Cannon+2.wav")
         
         
     }
     
     private func createGameBoard(width: Int,height: Int){
         
-        let cellWidth: CGFloat=27.5
-        let numRows=40
+        let cellWidth: CGFloat=60.5
+        let numRows=17
         let numCols=20
         var x=CGFloat(width / -2)+(cellWidth / 2)
         var y=CGFloat(height / 2)-(cellWidth / 2)
@@ -455,7 +428,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                 cellNode.zPosition=2
                 cellNode.position=CGPoint(x: x, y: y)
                 cellNode.name="Empty"
-              
+                
+                
                 
                 gameArray.append((node:cellNode , x: i, y: j,type:SquareType.Empty,health:100))
                 self.addChild(cellNode)
