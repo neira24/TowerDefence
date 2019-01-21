@@ -12,9 +12,20 @@ import GameplayKit
 enum SquareType{
     case Empty
     case Tower
-    case Castle
+    case Enemy
     case Destroyed
 }
+
+
+enum TowerType{
+    case Cannon
+    case Tower
+    case Castle
+    case Fort
+    case SAM
+    case Destroyed
+}
+
 
 enum BulletType {
     case towerFired
@@ -39,6 +50,37 @@ enum InvaderType{
 }
 
 
+class Tower {
+    
+    var health = 100
+    var type=TowerType.self
+    var power=100
+    var attackTime=1
+    var attackArea=2
+    var cost=1000
+    
+    init(type:TowerType){
+        
+        
+        if(type==TowerType.Cannon){
+            attackArea=2
+            health=100
+            power=20
+            attackTime=1
+            cost=200
+            
+        }
+        
+        
+    }
+    
+    
+    
+    
+}
+
+
+//create struct or class for health and other stuff.
 //https://www.freesoundeffects.com/free-sounds/cannon-10077/
 
 class GameScene: SKScene,SKPhysicsContactDelegate{
@@ -52,7 +94,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
     var currentScore: SKLabelNode!
     var gameBG: SKShapeNode!
     var invadersArray:[SKNode]=[]
-    var gameArray: [(node:SKShapeNode, x:Int,y:Int,type: SquareType,health:Int?)]=[]
+    var gameArray: [(node:SKShapeNode, x:Int,y:Int,towerType:TowerType,sqType: SquareType,health:Int?)]=[]
     let kTowerFiredBulletName = "towerFiredBullet"
     let kInvaderFiredBulletName = "invaderFiredBullet"
     let kBulletSize = CGSize(width:4, height: 8)
@@ -115,7 +157,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
 
             health=gameArray[index!].health!
             health=health-30
-            gameArray.insert((gameArray[index!].node,gameArray[index!].x,gameArray[index!].y,SquareType.Tower,health), at: index!)
+            gameArray.insert((gameArray[index!].node,gameArray[index!].x,gameArray[index!].y,TowerType.Tower,SquareType.Tower,health), at: index!)
             
         }
       /*  if contact.bodyA.node?.name=="Castle" && contact.bodyB.node?.name == kInvaderFiredBulletName{
@@ -226,7 +268,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                 SKTexture(imageNamed: String(format: "%@_01.png", prefix))]
     }
     
-    func loadTowerTextures(ofType towerType: SquareType) -> [SKTexture] {
+    func loadTowerTextures(ofType towerType: TowerType) -> [SKTexture] {
         
         var prefix: String
         
@@ -235,10 +277,14 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
             prefix = "Tower"
         case .Castle:
             prefix = "Castle"
-        case .Empty:
-            prefix = "Empty"
+        case .Cannon:
+            prefix = "Cannon"
         case .Destroyed:
             prefix="Destoryed"
+        case .SAM:
+            prefix = "SAM"
+        case .Fort:
+            prefix = "Fort"
         }
         
         // 1
@@ -293,22 +339,22 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                     
                 }
             }
-            for (node,x,y,type,health) in gameArray{
+            for (node,x,y,typeTower,typeSquare,health) in gameArray{
                 
                 let index=gameArray.firstIndex { (item) -> Bool in
                     
-                    return item==(node,x,y,type,health)
+                    return item==(node,x,y,typeTower,typeSquare,health)
                 }
                 
                 
                 
                 if(node.contains(location)){
-                    if(type==SquareType.Tower){
+                    if(typeTower==TowerType.Tower){
                         node.fillColor=SKColor.blue
                         gameArray.remove(at: index!)
                         node.name="Tower"
                         
-                        let invaderTextures = loadTowerTextures(ofType: type)
+                        let invaderTextures = loadTowerTextures(ofType: typeTower)
                         
                         // 2
                        node.fillTexture = invaderTextures[0]
@@ -320,7 +366,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                         node.physicsBody!.contactTestBitMask=kShipFiredBulletCategory
                         node.physicsBody!.collisionBitMask=0
                         
-                        gameArray.insert((node,x,y,SquareType.Castle,health), at: index!)
+                        gameArray.insert((node,x,y,TowerType.Castle,SquareType.Tower,health), at: index!)
                        
                         let bullet=makeBullet(ofType: .towerFired)
                         bullet.position=CGPoint(
@@ -342,10 +388,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                         
                     }
                     
-                    if(type==SquareType.Castle){
+                    if(typeTower==TowerType.Castle){
                         node.name="Castle"
                         
-                        let invaderTextures = loadTowerTextures(ofType: type)
+                        let invaderTextures = loadTowerTextures(ofType: typeTower)
                         node.fillTexture = invaderTextures[0]
                         let bullet=makeBullet(ofType: .towerFired)
                         bullet.position=CGPoint(
@@ -364,12 +410,12 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                         
                         
                     }
-                    if(type==SquareType.Empty){
+                   /* if(sq==TowerType.Tower){
                         node.fillColor=SKColor.red
                         gameArray.remove(at: index!)
-                        gameArray.insert((node,x,y,SquareType.Tower,health), at: index!)
+                        gameArray.insert((node,x,y,TowerType.Tower,health), at: index!)
                         break
-                    }
+                    }*/
                     
                 }
             
@@ -454,7 +500,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                 
                 
                 
-                gameArray.append((node:cellNode , x: i, y: j,type:SquareType.Empty,health:100))
+                gameArray.append((node:cellNode , x: i, y: j,towerType:TowerType.Tower, sqType:SquareType.Empty,health:100))
                 self.addChild(cellNode)
             
                 x+=cellWidth
