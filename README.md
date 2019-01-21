@@ -39,4 +39,9 @@ Basic idea is to build a tower defence type of game where you can upgrade your t
 
 ## Game mechanics
 
+https://www.fortressofdoors.com/optimizing-tower-defense-for-focus-and-thinking-defenders-quest/
+
+Tower defense games - MacSphere - McMaster University - https://www.google.com/search?q=tower+defence+game+mechanics&ei=DqlFXLbfEIevsAHgh6qIBg&start=10&sa=N&ved=0ahUKEwi2ntj23v7fAhWHFywKHeCDCmEQ8NMDCMwB&biw=1920&bih=1020#
+
+
 ## Life system
