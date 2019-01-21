@@ -6,7 +6,7 @@
 - [x] Game board as grid to add towers
 - [X] Basic shooting func
  - [X] Invader is able to shoot
- - [X] Tower is able to shoot
+ - [X] Tower is able to shoot 
 - [X] Basic collision detection
 - [X] Improve collision detection (Set right args and params for objects)
 - [X] Enemy creation
@@ -18,6 +18,7 @@
   - [ ] Ammo with different damage rate
   - [ ] Health system for all types of Towers and Invaders. Towers and Invaders health is decreased depending the ammo that is used and upgraded towers are stronger against lower level ammo
 - [ ] Tower upgrades system
+  - [ ] Type, power, attack time, attack area, and cost
 - [ ] Sprites and UI design (Towers, enemys)
 - [ ] Level design (Some nice GUI and landscape)
 - [ ] More levels?
