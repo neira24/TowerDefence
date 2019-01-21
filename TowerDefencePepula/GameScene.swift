@@ -100,6 +100,29 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
             }
         }
         
+        
+        //Store node names in data structure
+        //Generalize the collision detection for tower types
+        //Refactor Collision part, separate into different class or parts, make it more readable
+        //Refactor other game logic, make a nice how to for your self, to structure the project
+        if contact.bodyA.node?.name=="Tower" && contact.bodyB.node?.name == kInvaderFiredBulletName{
+       
+            var health:Int
+            let index=gameArray.firstIndex { (item) -> Bool in
+
+                return item.node == (contact.bodyA.node)
+            }
+
+            health=gameArray[index!].health!
+            health=health-30
+            gameArray.insert((gameArray[index!].node,gameArray[index!].x,gameArray[index!].y,SquareType.Tower,health), at: index!)
+            
+        }
+      /*  if contact.bodyA.node?.name=="Castle" && contact.bodyB.node?.name == kInvaderFiredBulletName{
+            
+            
+        }*/
+        
     }
     
     
@@ -284,7 +307,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                         node.fillColor=SKColor.blue
                         gameArray.remove(at: index!)
                         node.name="Tower"
-                     
+                        
                         let invaderTextures = loadTowerTextures(ofType: type)
                         
                         // 2
