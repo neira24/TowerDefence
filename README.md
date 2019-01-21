@@ -31,6 +31,9 @@
 - [ ] Score system
 - [ ] ???
 
+## Future
+- [ ] Read game design/level data in from excel or other txt file and create level from it, so the design phase could be easier.
+
 ## Idea
 
 Basic idea is to build a tower defence type of game where you can upgrade your tower, at some point build mobile towers if you have enough of points to upgrade one tower to factory and etc. Just another tower defence game, but hopefully it will have it's own tweak at some moment
