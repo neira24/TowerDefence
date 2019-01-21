@@ -24,7 +24,10 @@
 - [ ] Eco system
 - [ ] Handle all collisions
   - [ ] Different types of Ammo generate different damage, check for Ammo on collision
-  - [ ] 
+  - [ ] Generalize the collision detection for tower types
+  - [ ] Store node names in data structure
+  - [ ] Refactor Collision part, separate into different class or parts, make it more readable
+- [ ]  Refactor other game logic, make a nice how to for your self, to structure the project
 - [ ] Score system
 - [ ] ???
 
