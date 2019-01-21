@@ -43,5 +43,6 @@ https://www.fortressofdoors.com/optimizing-tower-defense-for-focus-and-thinking-
 
 Tower defense games - MacSphere - McMaster University - https://www.google.com/search?q=tower+defence+game+mechanics&ei=DqlFXLbfEIevsAHgh6qIBg&start=10&sa=N&ved=0ahUKEwi2ntj23v7fAhWHFywKHeCDCmEQ8NMDCMwB&biw=1920&bih=1020#
 
+https://macsphere.mcmaster.ca/.../Tower%20defense%20games%20-%20Ye%20Li.pdf
 
 ## Life system
