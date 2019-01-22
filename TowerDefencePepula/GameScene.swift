@@ -5,12 +5,40 @@
 //  Created by Lauri Roomere on 15/01/2019.
 //  Copyright © 2019 Lauri Roomere. All rights reserved.
 //
+/*
+ HP=100 10*2*10/2
+ HP = (ATK1×FRQ1×ELP1/Speed) + (ATK2×FRQ2×ELP2/Speed) +··· (4.1) KILL ENEMY
+HP stands for the health of that enemy, ATK stands for a tower’s power, FRQ stands for a tower’s attack frequency, and ELP stands for the effective length of the road. From formula 1, it is easy to transform and get:
 
+HP ×Speed=FRQ1×ATK1×ELP1+FRQ2×ATK2×ELP2+···
+ 
+ Introducing a variable SE to stand for the strength of an enemy and a variable ST to stands for the strength of a tower, we get:
+ For an enemy:
+ For a tower:
+ SE = HP × Speed
+ 
+ For a tower:
+  ST =FRQ×ATK×ELP ≈FRQ×ATK×Radius× sqroot(2)
+ 
+ 
+ Assuming a large number of enemies are spawned at the same time, if they belong
+ to the same type, then the difficulty of the game can be expressed as:
+ Difficulty=SE× (Num− (Life/ Harm))
+ 
+ 
+ Therefore, in order to survive, a player should be given a chance to satisfy:
+ Difficulty < ST1+ST2+ST3+···
+ 
+ Cost1 + Cost2 + Cost3 + · · · ≤ Money
+
+ 
+ */
 import SpriteKit
 import GameplayKit
 
 enum SquareType{
     case Empty
+    case Road
     case Tower
     case Enemy
     case Destroyed
@@ -55,11 +83,11 @@ class Tower {
     var health = 100
     var type=TowerType.self
     var power=100
-    var attackTime=1
+    var attackTime=1.0 as Double
     var attackArea=2
     var cost=1000
     
-    init(type:TowerType){
+    public init(type:TowerType){
         
         
         if(type==TowerType.Cannon){
@@ -68,6 +96,39 @@ class Tower {
             power=20
             attackTime=1
             cost=200
+            
+        }
+        if(type==TowerType.Tower){
+            attackArea=2
+            health=100
+            power=20
+            attackTime=1
+            cost=200
+            
+        }
+        if(type==TowerType.Castle){
+            attackArea=2
+            health=100
+            power=20
+            attackTime=1
+            cost=200
+            
+        }
+        if(type==TowerType.Fort){
+            attackArea=2
+            health=100
+            power=20
+            attackTime=1
+            cost=200
+            
+        }
+        if(type==TowerType.SAM){
+            attackArea=2
+            health=100
+            power=20
+            attackTime=1
+            cost=200
+            
             
         }
         
@@ -346,7 +407,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                     return item==(node,x,y,typeTower,typeSquare,health)
                 }
                 
+             
                 
+                
+                
+         
                 
                 if(node.contains(location)){
                     if(typeTower==TowerType.Tower){
@@ -380,8 +445,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                             
                         
                         )
-                     
-                        fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration: 1.0, andSoundFileName: "Cannon+2.wav")
+                        let tower = Tower(type:typeTower)
+                       
+                        fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration:tower.attackTime, andSoundFileName: "Cannon+2.wav")
                         
                         break
                         
@@ -483,6 +549,26 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         
     }
     
+    private func createRoad(){
+   //     https://medium.freecodecamp.org/how-to-make-your-own-procedural-dungeon-map-generator-using-the-random-walk-algorithm-e0085c8aa9a
+
+        for node in gameArray{
+            
+            let index=gameArray.firstIndex { (item) -> Bool in
+                
+                return item.node == node.node
+            }
+            
+            node.node.fillColor=UIColor.magenta
+          
+            gameArray.insert((gameArray[index!].node,gameArray[index!].x,gameArray[index!].y,TowerType.Tower,SquareType.Tower,gameArray[index!].health), at: index!)
+            
+        }
+        
+        
+    }
+    
+    
     private func createGameBoard(width: Int,height: Int){
         
         let cellWidth: CGFloat=60.5
@@ -492,17 +578,27 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         var y=CGFloat(height / 2)-(cellWidth / 2)
         for i in 0...numRows-1{
             for j in 0...numCols-1{
+                
                 let cellNode=SKShapeNode(rectOf: CGSize(width: cellWidth, height: cellWidth))
                 cellNode.strokeColor=SKColor.black
                 cellNode.zPosition=2
                 cellNode.position=CGPoint(x: x, y: y)
                 cellNode.name="Empty"
                 
+                let cellPos:SKLabelNode!
+                cellPos=SKLabelNode(fontNamed: "ArialRoundedMTBold")
+                cellPos.position=CGPoint(x:x, y:y)
+                cellPos.fontSize=20
+                cellPos.text=String(format: "(%i;%i)",i,j)
+                cellPos.fontColor=SKColor.red
+                gameBG.addChild(cellPos)
+              
                 
                 
                 gameArray.append((node:cellNode , x: i, y: j,towerType:TowerType.Tower, sqType:SquareType.Empty,health:100))
                 self.addChild(cellNode)
-            
+               
+               
                 x+=cellWidth
                 
                 
