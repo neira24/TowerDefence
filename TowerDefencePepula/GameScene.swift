@@ -52,6 +52,7 @@ enum TowerType{
     case Fort
     case SAM
     case Destroyed
+    case Empty
 }
 
 
@@ -346,7 +347,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
             prefix = "SAM"
         case .Fort:
             prefix = "Fort"
+        case .Empty:
+            prefix = "Empty"
         }
+      
         
         // 1
         return [SKTexture(imageNamed: String(format: "%@_00.png", prefix)),
@@ -515,7 +519,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
             self.gameBG.run(SKAction.scale(to: 1, duration: 0.4))
             self.currentScore.run(SKAction.scale(to: 1, duration: 0.4))
             self.game.initGame()
-           
+            self.createRoad()
             
         }
         perform(#selector(loadInvadersToScene), with: nil, afterDelay: 3)
@@ -551,21 +555,72 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
     
     private func createRoad(){
    //     https://medium.freecodecamp.org/how-to-make-your-own-procedural-dungeon-map-generator-using-the-random-walk-algorithm-e0085c8aa9a
-
-        for node in gameArray{
-            
-            let index=gameArray.firstIndex { (item) -> Bool in
+        var dimensions=16 //grid width and height
+        var   maxNumOfPaths=16 //max number of different paths
+        var   maxLength=16 //max length of one [][][] three squares
+         var   currentRow=0 //Int(floor(Float.random(in: 0 ... 16)))
+         var   currentColumn=0 //Int(floor(Float.random(in: 0 ... 16)))
+         let   directions = [(-1, 0), (1, 0), (0, -1), (0, 1)] //up,down,left,right
+        var   lastDirection:(Int,Int) = (0,0)
+        var  randomDirection: (Int,Int)
+     
+        while (dimensions>0) && (maxNumOfPaths>0) && (maxLength>0) {
+            var isTrue:Bool
+          
+            repeat{
                 
-                return item.node == node.node
+               randomDirection=directions[Int.random(in: 0 ... 3)]
+                isTrue=false
+                
+                if (((randomDirection.0 == lastDirection.0 * -1) && (randomDirection.1 == lastDirection.1 * -1)) || ((randomDirection.0 == lastDirection.0) && (randomDirection.1 == lastDirection.1))){
+                    isTrue=true
+                }
+            
+            }while  isTrue == true; do {
+                
+                let randomLength = Int(ceil(Double.random(in: 0 ... 3)))
+                var currentLength = 0
+                
+                
+                for i in 0 ... randomLength {
+                    
+                    if (((currentRow == 0) && (randomDirection.0 == -1)) ||
+                        ((currentColumn == 0) && (randomDirection.0 == -1)) ||
+                        ((currentRow == dimensions - 1) && (randomDirection.0 == 1)) ||
+                        ((currentColumn == dimensions - 1) && (randomDirection.0 == 1))) {
+                        break;
+                    
+                    }else{
+                        
+                        let index=gameArray.firstIndex { (item) -> Bool in
+                            
+                            return (item.x,item.y) == (currentRow,currentColumn)
+                        }
+                        if index != nil{
+                        gameArray[index!].node.fillColor=UIColor.purple
+                        gameArray.insert((gameArray[index!].node,gameArray[index!].x,gameArray[index!].y,TowerType.Destroyed,SquareType.Road,gameArray[index!].health), at: index!)
+                        }
+                        currentRow=currentRow + randomDirection.0
+                        currentColumn=currentColumn + randomDirection.1
+                        currentLength=currentLength + 1
+                        
+                        
+                    }
+                    
+                }
+                if currentLength > 0{
+                    
+                    lastDirection = randomDirection
+                    maxNumOfPaths = maxNumOfPaths - 1
+                    
+                }
+                
+                
+                
             }
             
-            node.node.fillColor=UIColor.magenta
-          
-            gameArray.insert((gameArray[index!].node,gameArray[index!].x,gameArray[index!].y,TowerType.Tower,SquareType.Tower,gameArray[index!].health), at: index!)
-            
         }
-        
-        
+
     }
     
     
