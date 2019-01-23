@@ -161,7 +161,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
     let kInvaderFiredBulletName = "invaderFiredBullet"
     let kBulletSize = CGSize(width:4, height: 8)
     var contactQueue = [SKPhysicsContact]()
-    
+    var endOfRoad:(Int,Int)=(0,0)
     let kInvaderCategory: UInt32 = 0x1 << 0
     let kShipFiredBulletCategory: UInt32 = 0x1 << 1
     let kShipCategory: UInt32 = 0x1 << 2
@@ -556,15 +556,17 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
     private func createRoad(){
    //     https://medium.freecodecamp.org/how-to-make-your-own-procedural-dungeon-map-generator-using-the-random-walk-algorithm-e0085c8aa9a
         var dimensions=16 //grid width and height
+        var dimensionRow=16
+        var dimensionColumn=8
         var   maxNumOfPaths=16 //max number of different paths
-        var   maxLength=16 //max length of one [][][] three squares
+        var   maxLength=8 //max length of one [][][] three squares
          var   currentRow=0 //Int(floor(Float.random(in: 0 ... 16)))
-         var   currentColumn=0 //Int(floor(Float.random(in: 0 ... 16)))
+         var   currentColumn=Int(floor(Float.random(in: 1 ... 16)))
          let   directions = [(-1, 0), (1, 0), (0, -1), (0, 1)] //up,down,left,right
         var   lastDirection:(Int,Int) = (0,0)
         var  randomDirection: (Int,Int)
-     
-        while (dimensions>0) && (maxNumOfPaths>0) && (maxLength>0) {
+        
+        while (dimensionColumn>0) && (dimensionRow>0) && (maxNumOfPaths>0) && (maxLength>0) {
             var isTrue:Bool
           
             repeat{
@@ -578,7 +580,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
             
             }while  isTrue == true; do {
                 
-                let randomLength = Int(ceil(Double.random(in: 0 ... 3)))
+                let randomLength = Int(ceil(Double.random(in: 10 ... 20)))
                 var currentLength = 0
                 
                 
@@ -586,8 +588,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                     
                     if (((currentRow == 0) && (randomDirection.0 == -1)) ||
                         ((currentColumn == 0) && (randomDirection.0 == -1)) ||
-                        ((currentRow == dimensions - 1) && (randomDirection.0 == 1)) ||
-                        ((currentColumn == dimensions - 1) && (randomDirection.0 == 1))) {
+                        ((currentRow == dimensionRow - 1) && (randomDirection.0 == 1)) ||
+                        ((currentColumn == dimensionColumn - 1) && (randomDirection.0 == 1))) {
                         break;
                     
                     }else{
@@ -603,7 +605,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                         currentRow=currentRow + randomDirection.0
                         currentColumn=currentColumn + randomDirection.1
                         currentLength=currentLength + 1
-                        
+                        endOfRoad=(currentRow,currentColumn)
                         
                     }
                     
@@ -611,6 +613,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                 if currentLength > 0{
                     
                     lastDirection = randomDirection
+                    
                     maxNumOfPaths = maxNumOfPaths - 1
                     
                 }
@@ -620,6 +623,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
             }
             
         }
+        
+        print("Last direction %@ %@",endOfRoad.0 , endOfRoad.1)
 
     }
     
@@ -628,7 +633,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         
         let cellWidth: CGFloat=60.5
         let numRows=17
-        let numCols=20
+        let numCols=9
         var x=CGFloat(width / -2)+(cellWidth / 2)
         var y=CGFloat(height / 2)-(cellWidth / 2)
         for i in 0...numRows-1{
