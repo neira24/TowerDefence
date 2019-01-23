@@ -24,8 +24,8 @@
 - [ ] Level design (Some nice GUI and landscape)
 - [ ] More levels?
 - [ ] Eco system
-- [ ] Handle all collisions
-  - [ ] Different types of Ammo generate different damage, check for Ammo on collision
+- [ ] Handle all collisions . 
+  - [ ] Different types of Ammo generate different damage, check for Ammo on collision
   - [ ] Generalize the collision detection for tower types
   - [ ] Store node names in data structure
   - [ ] Refactor Collision part, separate into different class or parts, make it more readable
