@@ -10,6 +10,7 @@
 - [X] Basic collision detection
 - [X] Improve collision detection (Set right args and params for objects)
 - [X] Enemy creation
+- [X] Generate path that towers must protect and enemies can travel on
 - [ ] Generate multiple enemies and make them move in different kind of patterns
 - [ ] Life system
   - [X] Basic health counter for invader
