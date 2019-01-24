@@ -332,7 +332,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                 path.move(to:(invader.position))
                 path.addLine(to:point)
                 lastPath=point
-                let followLine = SKAction.follow(path.cgPath, asOffset: false, orientToPath: false, speed: 50.0)
+                let followLine = SKAction.follow(path.cgPath, asOffset: false, orientToPath:true, speed: 50.0)
                 actionSequence.append(followLine)
                   let shape = SKShapeNode()
                 shape.path = path.cgPath
@@ -345,7 +345,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                      path.move(to:lastPath)
                      path.addLine(to: point)
                      lastPath=point
-                     let followLine = SKAction.follow(path.cgPath, asOffset: false, orientToPath: false, speed: 50.0)
+                     let followLine = SKAction.follow(path.cgPath, asOffset: false, orientToPath:true, speed: 50.0)
                      actionSequence.append(followLine)
                   let shape = SKShapeNode()
                         shape.path = path.cgPath
