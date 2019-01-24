@@ -300,19 +300,21 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
            // gameBG.addChild(tank)
             
             gameBG.addChild(tank)
-        
+            
            
             invadersArray.append(tank)
         
         }
+        for invader in invadersArray{
+             perform(#selector(moveInvaders), with:invader, afterDelay: 3)
+        }
         
-          perform(#selector(moveInvaders), with: nil, afterDelay: 3)
    
         
-        
+    
     }
     
-    @objc func moveInvaders(){
+    @objc func moveInvaders(invader:SKNode){
         //https://www.raywenderlich.com/2250-how-to-make-a-line-drawing-game-with-sprite-kit-and-swift
        
         var lastPath = CGPoint()
@@ -326,7 +328,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
             
             if(lastPath.x==0 && lastPath.y==0){
                  let path = UIBezierPath()
-                path.move(to:(invadersArray.first!.position))
+                
+                path.move(to:(invader.position))
                 path.addLine(to:point)
                 lastPath=point
                 let followLine = SKAction.follow(path.cgPath, asOffset: false, orientToPath: false, speed: 50.0)
@@ -336,6 +339,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                 shape.strokeColor = UIColor.white
                 shape.lineWidth = 4
                 gameBG.addChild(shape)
+                
             }else{
                     let path = UIBezierPath()
                      path.move(to:lastPath)
@@ -356,44 +360,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         
       
         //https://www.hackingwithswift.com/read/14/4/whack-to-win-skaction-sequences
-        //sealiha sardell ja suits.
-
-
-       // shape.path = path.cgPath
-       // shape.strokeColor = UIColor.white
-       // shape.lineWidth = 4
-     
-       // addChild(shape)
-       //  gameBG.addChild(shape)
-//        let followLine = SKAction.follow(path.cgPath, asOffset: true, orientToPath: true, speed: 100.0)
-//
-//
-//        path.move(to: (fullRoadPath.last)!)
-//        path.addLine(to: fullRoadPath[fullRoadPath.count-2])
-//        let shape2 = SKShapeNode()
-//        shape2.path = path.cgPath
-//        shape2.strokeColor = UIColor.white
-//        shape2.lineWidth = 4
-//        gameBG.addChild(shape2)
-//        let followLine2 = SKAction.follow(path.cgPath, asOffset: true, orientToPath: true, speed: 100.0)
-//
-//        invadersArray.first?.run(SKAction.sequence([followLine,followLine2]))
-        
-        for invader in invadersArray{
-            
-           //let current=invader.position
-            //Move to closest road path and generate invaders into closest top row path
-         
-           /// let arr=SKAction.follow(path.cgPath, speed:4.0)
-          //  let square = UIBezierPath(rect: CGRect(x: 0,y: 0, width: 100, height: 100))
-           //let followLine = SKAction.follow(path.cgPath, asOffset: true, orientToPath: true, speed: 100.0)
+ 
            invader.run(SKAction.sequence(actionSequence))
-//            run(SKAction.sequence([SKAction.wait(forDuration:3.0)],blockAction))
-        }
-        
-        
-        
-        
         
     }
     
