@@ -217,10 +217,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
 
                 return item.node == (contact.bodyA.node)
             }
-
+            
             health=gameArray[index!].health!
             health=health-30
-            gameArray.insert((gameArray[index!].node,gameArray[index!].x,gameArray[index!].y,TowerType.Tower,SquareType.Tower,health), at: index!)
+            gameArray.remove(at: index!)
+            gameArray.insert((gameArray[index!].node,gameArray[index!].x,gameArray[index!].y,gameArray[index!].towerType,gameArray[index!].sqType,health), at: index!)
             
         }
       /*  if contact.bodyA.node?.name=="Castle" && contact.bodyB.node?.name == kInvaderFiredBulletName{
@@ -471,16 +472,17 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                 
          
                 
-                if(node.contains(location)){
+                if(node.contains(location) && gameArray[index!].sqType != SquareType.Road){
                     if(typeTower==TowerType.Tower){
-                        node.fillColor=SKColor.blue
+                        node.fillColor=SKColor.white
                         gameArray.remove(at: index!)
                         node.name="Tower"
                         
                         let invaderTextures = loadTowerTextures(ofType: typeTower)
                         
                         // 2
-                       node.fillTexture = invaderTextures[0]
+                        node.fillTexture = invaderTextures[1]
+                       
                       
                        // let invader = SKSpriteNode(texture: invaderTextures[0])
                         node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.frame.width, height: node.frame.height))
@@ -489,8 +491,19 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                         node.physicsBody!.contactTestBitMask=kShipFiredBulletCategory
                         node.physicsBody!.collisionBitMask=0
                         
+                        let weaponType = SKShapeNode()
+                        
+                        let texture=SKTexture(imageNamed: "Cannon_00.png")
+                        let invader = SKSpriteNode(texture: texture)
+                        invader.name = InvaderType.name
+                        invader.userData=NSMutableDictionary()
+                        invader.position=CGPoint(x:node.position.x, y: node.position.y)
+                        invader.scale(to: CGSize(width: node.frame.width/1.2, height: node.frame.width/1.2))
+                        gameBG.addChild(invader)
+                        
                         gameArray.insert((node,x,y,TowerType.Castle,SquareType.Tower,health), at: index!)
                        
+                        
                         let bullet=makeBullet(ofType: .towerFired)
                         bullet.position=CGPoint(
                             x:location.x,
@@ -506,7 +519,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                         let tower = Tower(type:typeTower)
                        
                         fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration:tower.attackTime, andSoundFileName: "Cannon+2.wav")
-                        
+                 
                         break
                         
                         
@@ -517,6 +530,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                         
                         let invaderTextures = loadTowerTextures(ofType: typeTower)
                         node.fillTexture = invaderTextures[0]
+                    
                         let bullet=makeBullet(ofType: .towerFired)
                         bullet.position=CGPoint(
                             x:location.x,
@@ -531,7 +545,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                         )
                         
                         fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration: 1.0, andSoundFileName: "Cannon+2.wav")
-                        
+                      
                         
                     }
                    /* if(sq==TowerType.Tower){
@@ -607,6 +621,22 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         
     }
     
+    private func loadRoadTexture()-> SKTexture{
+        
+        var prefix: String
+        
+        prefix=String(Int.random(in: 1 ... 8))
+        
+        
+        // 1
+        let imgName=String(format:"road_%@.png", prefix)
+        return SKTexture(imageNamed:imgName)
+    }
+    
+        
+        
+    
+    
     private func createRoad(){
    //     https://medium.freecodecamp.org/how-to-make-your-own-procedural-dungeon-map-generator-using-the-random-walk-algorithm-e0085c8aa9a
         var dimensions=16 //grid width and height
@@ -653,9 +683,13 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                             return (item.x,item.y) == (currentRow,currentColumn)
                         }
                         if index != nil{
-                        gameArray[index!].node.fillColor=UIColor.purple
-                        gameArray.insert((gameArray[index!].node,gameArray[index!].x,gameArray[index!].y,TowerType.Destroyed,SquareType.Road,gameArray[index!].health), at: index!)
-                        fullRoadPath.append(gameArray[index!].node.position)
+                            
+                        gameArray[index!].node.fillColor=UIColor.white
+                        gameArray[index!].node.fillTexture=loadRoadTexture()
+                            
+                            gameArray.remove(at: index!); gameArray.insert((gameArray[index!].node,gameArray[index!].x,gameArray[index!].y,TowerType.Destroyed,SquareType.Road,gameArray[index!].health), at: index!)
+                            fullRoadPath.append(gameArray[index!].node.position)
+                        
                         }
                         currentRow=currentRow + randomDirection.0
                         currentColumn=currentColumn + randomDirection.1
