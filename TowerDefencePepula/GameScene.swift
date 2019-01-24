@@ -162,6 +162,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
     let kBulletSize = CGSize(width:4, height: 8)
     var contactQueue = [SKPhysicsContact]()
     var endOfRoad:(Int,Int)=(0,0)
+    var fullRoadPath=[CGPoint]()
     let kInvaderCategory: UInt32 = 0x1 << 0
     let kShipFiredBulletCategory: UInt32 = 0x1 << 1
     let kShipCategory: UInt32 = 0x1 << 2
@@ -300,9 +301,94 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
             
             gameBG.addChild(tank)
         
-          
+           
             invadersArray.append(tank)
         
+        }
+        
+          perform(#selector(moveInvaders), with: nil, afterDelay: 3)
+   
+        
+        
+    }
+    
+    @objc func moveInvaders(){
+        //https://www.raywenderlich.com/2250-how-to-make-a-line-drawing-game-with-sprite-kit-and-swift
+       
+        var lastPath = CGPoint()
+      
+        var actionSequence:[SKAction]=[]
+        //Wait for first waypoiint to be traveled through then add next line to travel, and then next. You have to wait
+        
+   
+        
+        for point in fullRoadPath{
+            
+            if(lastPath.x==0 && lastPath.y==0){
+                 let path = UIBezierPath()
+                path.move(to:(invadersArray.first!.position))
+                path.addLine(to:point)
+                lastPath=point
+                let followLine = SKAction.follow(path.cgPath, asOffset: false, orientToPath: false, speed: 50.0)
+                actionSequence.append(followLine)
+                  let shape = SKShapeNode()
+                shape.path = path.cgPath
+                shape.strokeColor = UIColor.white
+                shape.lineWidth = 4
+                gameBG.addChild(shape)
+            }else{
+                    let path = UIBezierPath()
+                     path.move(to:lastPath)
+                     path.addLine(to: point)
+                     lastPath=point
+                     let followLine = SKAction.follow(path.cgPath, asOffset: false, orientToPath: false, speed: 50.0)
+                     actionSequence.append(followLine)
+                  let shape = SKShapeNode()
+                        shape.path = path.cgPath
+                        shape.strokeColor = UIColor.white
+                    shape.lineWidth = 4
+                    gameBG.addChild(shape)
+            }
+            
+            
+        }
+       
+        
+      
+        //https://www.hackingwithswift.com/read/14/4/whack-to-win-skaction-sequences
+        //sealiha sardell ja suits.
+
+
+       // shape.path = path.cgPath
+       // shape.strokeColor = UIColor.white
+       // shape.lineWidth = 4
+     
+       // addChild(shape)
+       //  gameBG.addChild(shape)
+//        let followLine = SKAction.follow(path.cgPath, asOffset: true, orientToPath: true, speed: 100.0)
+//
+//
+//        path.move(to: (fullRoadPath.last)!)
+//        path.addLine(to: fullRoadPath[fullRoadPath.count-2])
+//        let shape2 = SKShapeNode()
+//        shape2.path = path.cgPath
+//        shape2.strokeColor = UIColor.white
+//        shape2.lineWidth = 4
+//        gameBG.addChild(shape2)
+//        let followLine2 = SKAction.follow(path.cgPath, asOffset: true, orientToPath: true, speed: 100.0)
+//
+//        invadersArray.first?.run(SKAction.sequence([followLine,followLine2]))
+        
+        for invader in invadersArray{
+            
+           //let current=invader.position
+            //Move to closest road path and generate invaders into closest top row path
+         
+           /// let arr=SKAction.follow(path.cgPath, speed:4.0)
+          //  let square = UIBezierPath(rect: CGRect(x: 0,y: 0, width: 100, height: 100))
+           //let followLine = SKAction.follow(path.cgPath, asOffset: true, orientToPath: true, speed: 100.0)
+           invader.run(SKAction.sequence(actionSequence))
+//            run(SKAction.sequence([SKAction.wait(forDuration:3.0)],blockAction))
         }
         
         
@@ -601,12 +687,13 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                         if index != nil{
                         gameArray[index!].node.fillColor=UIColor.purple
                         gameArray.insert((gameArray[index!].node,gameArray[index!].x,gameArray[index!].y,TowerType.Destroyed,SquareType.Road,gameArray[index!].health), at: index!)
+                        fullRoadPath.append(gameArray[index!].node.position)
                         }
                         currentRow=currentRow + randomDirection.0
                         currentColumn=currentColumn + randomDirection.1
                         currentLength=currentLength + 1
                         endOfRoad=(currentRow,currentColumn)
-                        
+                       
                     }
                     
                 }
