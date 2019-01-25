@@ -156,7 +156,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
     var currentScore: SKLabelNode!
     var gameBG: SKShapeNode!
     var invadersArray:[SKNode]=[]
-    var gameArray: [(node:SKShapeNode, x:Int,y:Int,towerType:TowerType,sqType: SquareType,health:Int?)]=[]
+    var towersInUseArray:[(node:SKShapeNode, x:Int,y:Int,towerType:TowerType,sqType: SquareType,health:Int?,towerTop:SKSpriteNode?)]=[]
+    var gameArray: [(node:SKShapeNode, x:Int,y:Int,towerType:TowerType,sqType: SquareType,health:Int?,towerTop:SKSpriteNode?)]=[]
     let kTowerFiredBulletName = "towerFiredBullet"
     let kInvaderFiredBulletName = "invaderFiredBullet"
     let kBulletSize = CGSize(width:4, height: 8)
@@ -221,7 +222,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
             health=gameArray[index!].health!
             health=health-30
             gameArray.remove(at: index!)
-            gameArray.insert((gameArray[index!].node,gameArray[index!].x,gameArray[index!].y,gameArray[index!].towerType,gameArray[index!].sqType,health), at: index!)
+            gameArray.insert((gameArray[index!].node,gameArray[index!].x,gameArray[index!].y,gameArray[index!].towerType,gameArray[index!].sqType,health,gameArray[index!].towerTop), at: index!)
             
         }
       /*  if contact.bodyA.node?.name=="Castle" && contact.bodyB.node?.name == kInvaderFiredBulletName{
@@ -246,10 +247,42 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         }
     }
 
-    
+    //REFAAAACTOR PLS
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         game.update(time: currentTime)
+        
+        for tower in towersInUseArray{
+            
+                                    let bullet=makeBullet(ofType: .towerFired)
+                                    bullet.position=CGPoint(
+                                        x:tower.node.position.x,
+                                        y:tower.node.position.y+tower.node.frame.height-bullet.frame.size.height / 2
+                                    )
+            
+                                    let bulletDestination=CGPoint(
+                                        x:invadersArray.last?.position.y ?? tower.node.position.x,
+                                        y:frame.size.height+bullet.frame.size.height/2
+            
+            
+                                    )
+            if(invadersArray.count>0){
+                let angle = atan2(tower.node.position.y - (invadersArray.last?.position.y)!,tower.node.position.x - (invadersArray.last?.position.x)!)
+                //rotate tower
+                //SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
+                //vaata yle
+                
+                tower.towerTop!.zRotation=angle+CGFloat(M_PI*0.5)
+            }
+            
+                                    let tower = Tower(type:tower.towerType)
+            
+            
+                                   // fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration:tower.attackTime, andSoundFileName: "Cannon+2.wav")
+
+            
+        }
+        
         processContacts(forUpdate: currentTime)
     }
     
@@ -459,11 +492,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                     
                 }
             }
-            for (node,x,y,typeTower,typeSquare,health) in gameArray{
+            for (node,x,y,typeTower,typeSquare,health,towerTOP) in gameArray{
                 
                 let index=gameArray.firstIndex { (item) -> Bool in
                     
-                    return item==(node,x,y,typeTower,typeSquare,health)
+                    return item.node==node
                 }
                 
              
@@ -483,7 +516,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                         // 2
                         node.fillTexture = invaderTextures[1]
                        
-                      
+                        
                        // let invader = SKSpriteNode(texture: invaderTextures[0])
                         node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.frame.width, height: node.frame.height))
                         node.physicsBody!.isDynamic=false
@@ -499,26 +532,28 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                         invader.userData=NSMutableDictionary()
                         invader.position=CGPoint(x:node.position.x, y: node.position.y)
                         invader.scale(to: CGSize(width: node.frame.width/1.2, height: node.frame.width/1.2))
+                       
+                        
                         gameBG.addChild(invader)
                         
-                        gameArray.insert((node,x,y,TowerType.Castle,SquareType.Tower,health), at: index!)
-                       
                         
-                        let bullet=makeBullet(ofType: .towerFired)
-                        bullet.position=CGPoint(
-                            x:location.x,
-                            y:location.y+node.frame.height-bullet.frame.size.height / 2
-                        )
-                        
-                        let bulletDestination=CGPoint(
-                            x:location.x,
-                            y:frame.size.height+bullet.frame.size.height/2
-                            
-                        
-                        )
-                        let tower = Tower(type:typeTower)
-                       
-                        fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration:tower.attackTime, andSoundFileName: "Cannon+2.wav")
+                        gameArray.insert((node,x,y,TowerType.Castle,SquareType.Tower,health,invader), at: index!)
+                        towersInUseArray.append((node,x,y,TowerType.Castle,SquareType.Tower,health,invader))
+//                        let bullet=makeBullet(ofType: .towerFired)
+//                        bullet.position=CGPoint(
+//                            x:location.x,
+//                            y:location.y+node.frame.height-bullet.frame.size.height / 2
+//                        )
+//
+//                        let bulletDestination=CGPoint(
+//                            x:location.x,
+//                            y:frame.size.height+bullet.frame.size.height/2
+//
+//
+//                        )
+//                        let tower = Tower(type:typeTower)
+//
+//                        fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration:tower.attackTime, andSoundFileName: "Cannon+2.wav")
                  
                         break
                         
@@ -687,7 +722,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                         gameArray[index!].node.fillColor=UIColor.white
                         gameArray[index!].node.fillTexture=loadRoadTexture()
                             
-                            gameArray.remove(at: index!); gameArray.insert((gameArray[index!].node,gameArray[index!].x,gameArray[index!].y,TowerType.Destroyed,SquareType.Road,gameArray[index!].health), at: index!)
+                            gameArray.remove(at: index!); gameArray.insert((gameArray[index!].node,gameArray[index!].x,gameArray[index!].y,TowerType.Destroyed,SquareType.Road,gameArray[index!].health,nil), at: index!)
                             fullRoadPath.append(gameArray[index!].node.position)
                         
                         }
@@ -744,7 +779,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
               
                 
                 
-                gameArray.append((node:cellNode , x: i, y: j,towerType:TowerType.Tower, sqType:SquareType.Empty,health:100))
+                gameArray.append((node:cellNode , x: i, y: j,towerType:TowerType.Tower, sqType:SquareType.Empty,health:100,nil))
                 self.addChild(cellNode)
                
                
@@ -762,7 +797,11 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
       
         
     }
-    
+    /*
+ 
+     ------
+  tank-----
+ */
     func makeBullet(ofType bulletType: BulletType) -> SKNode {
         var bullet: SKNode
         
