@@ -63,8 +63,14 @@ class Invader:NSObject{
         
     }
     
+    public func loadInvaders()->[SKNode]{
+        
+       
+        return self.invadersArray
+    }
     
-    @objc public func loadInvadersToScene(){
+    
+    public func loadInvadersToScene()->[SKNode]{
         let countOfInvaders=Int.random(in: 3 ... 10)
         
         for _ in 0...countOfInvaders{
@@ -83,12 +89,13 @@ class Invader:NSObject{
             invadersArray.append(tank)
             
         }
+        
         for invader in invadersArray{
             
             perform(#selector(moveInvaders), with:invader, afterDelay: 3)
         }
         
-        
+        return invadersArray;
         
         
     }

@@ -159,6 +159,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
     var game:GameManager!
     var road:Road!
     var invaders:Invader!
+    var towers:Towers!
     var currentScore: SKLabelNode!
     var gameBG: SKShapeNode!
     var invadersArray:[SKNode]=[]
@@ -186,8 +187,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
        game=GameManager(scene:self)
        initializeGameView()
        road=Road()
-        invaders=Invader(scene:self,roadPath:&fullRoadPath,gameBoard:gameBG,invadersArrayIn:&invadersArray)
-    
+       towers=Towers.init(scene: self, gameBG: self.gameBG)
+     
     }
  
     func didBegin(_ contact: SKPhysicsContact) {
@@ -259,8 +260,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         game.update(time: currentTime)
         
         for tower in towersInUseArray{
-            
-                                    let bullet=makeBullet(ofType: .towerFired)
+           
+                                    let bullet = Bullet.init().makeBullet(ofType: .towerFired)
                                     bullet.position=CGPoint(
                                         x:tower.towerTop!.position.x,
                                         y:tower.towerTop!.position.y+tower.towerTop!.frame.height-bullet.frame.size.height / 2
@@ -282,7 +283,8 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                 let tower2 = Tower(type:tower.towerType)
               
                 if(currentTime>tower.nextAttack!){
-                  fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration:tower2.attackTime, andSoundFileName: "Cannon+2.wav")
+                  
+                    towers.fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration:tower2.attackTime, andSoundFileName: "Cannon+2.wav")
                 
                     
                         
@@ -349,33 +351,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
     }
     //Remove from here
 
-    func loadTowerTextures(ofType towerType: TowerType) -> [SKTexture] {
-        
-        var prefix: String
-        
-        switch(towerType) {
-        case .Tower:
-            prefix = "Tower"
-        case .Castle:
-            prefix = "Castle"
-        case .Cannon:
-            prefix = "Cannon"
-        case .Destroyed:
-            prefix="Destoryed"
-        case .SAM:
-            prefix = "SAM"
-        case .Fort:
-            prefix = "Fort"
-        case .Empty:
-            prefix = "Empty"
-        }
-      
-        
-        // 1
-        return [SKTexture(imageNamed: String(format: "%@_00.png", prefix)),
-                SKTexture(imageNamed: String(format: "%@_01.png", prefix))]
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event:UIEvent?){
        
         for touch in touches{
@@ -393,116 +368,10 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                     
                 }
             }
-            for (node,x,y,typeTower,typeSquare,health,towerTOP) in gameArray{
-                
-                let index=gameArray.firstIndex { (item) -> Bool in
-                    
-                    return item.node==node
-                }
-                
-             
-                
-                
-                
-         
-                
-                if(node.contains(location) && gameArray[index!].sqType != SquareType.Road){
-                    if(typeTower==TowerType.Tower){
-                        node.fillColor=SKColor.white
-                        gameArray.remove(at: index!)
-                        node.name="Tower"
-                        
-                        let invaderTextures = loadTowerTextures(ofType: typeTower)
-                        
-                        // 2
-                        node.fillTexture = invaderTextures[1]
-                       
-                        
-                       // let invader = SKSpriteNode(texture: invaderTextures[0])
-                        node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: node.frame.width, height: node.frame.height))
-                        node.physicsBody!.isDynamic=false
-                        node.physicsBody!.categoryBitMask=kShipCategory
-                        node.physicsBody!.contactTestBitMask=kShipFiredBulletCategory
-                        node.physicsBody!.collisionBitMask=0
-                        
-                        let weaponType = SKShapeNode()
-                        
-                        let texture=SKTexture(imageNamed: "Cannon_00.png")
-                        let invader = SKSpriteNode(texture: texture)
-                        invader.name = InvaderType.name
-                        invader.userData=NSMutableDictionary()
-                        invader.position=CGPoint(x:node.position.x, y: node.position.y)
-                        invader.scale(to: CGSize(width: node.frame.width/1.2, height: node.frame.width/1.2))
-                       
-                        
-                        gameBG.addChild(invader)
-                        
-                        
-                        gameArray.insert((node,x,y,TowerType.Castle,SquareType.Tower,health,invader), at: index!)
-                        towersInUseArray.append((node,x,y,TowerType.Castle,SquareType.Tower,health,invader,0.0))
-//                        let bullet=makeBullet(ofType: .towerFired)
-//                        bullet.position=CGPoint(
-//                            x:location.x,
-//                            y:location.y+node.frame.height-bullet.frame.size.height / 2
-//                        )
-//
-//                        let bulletDestination=CGPoint(
-//                            x:location.x,
-//                            y:frame.size.height+bullet.frame.size.height/2
-//
-//
-//                        )
-//                        let tower = Tower(type:typeTower)
-//
-//                        fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration:tower.attackTime, andSoundFileName: "Cannon+2.wav")
-                 
-                        break
-                        
-                        
-                    }
-                    
-                    if(typeTower==TowerType.Castle){
-                        node.name="Castle"
-                        
-                        let invaderTextures = loadTowerTextures(ofType: typeTower)
-                        node.fillTexture = invaderTextures[0]
-                    
-                        let bullet=makeBullet(ofType: .towerFired)
-                        bullet.position=CGPoint(
-                            x:location.x,
-                            y:location.y+node.frame.height-bullet.frame.size.height / 2
-                        )
-                        
-                        let bulletDestination=CGPoint(
-                            x:location.x,
-                            y:frame.size.height+bullet.frame.size.height/2
-                            
-                            
-                        )
-                        
-                        fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration: 1.0, andSoundFileName: "Cannon+2.wav")
-                      
-                        
-                    }
-                   /* if(sq==TowerType.Tower){
-                        node.fillColor=SKColor.red
-                        gameArray.remove(at: index!)
-                        gameArray.insert((node,x,y,TowerType.Tower,health), at: index!)
-                        break
-                    }*/
-                    
-                }
             
-            
-            
-        }
-      
-        
-            
-            
-            
-            
-            
+            if((towers) != nil){
+                    towers.createUpgradeTower(gameArray: &gameArray, location: location, towersInUserArray: &towersInUseArray)
+            }
         }
         
     }
@@ -525,11 +394,13 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
             self.game.initGame()
             
             self.road.createRoad(gameArray: &self.gameArray, fullRoadPath: &self.fullRoadPath, endOfRoad: &self.endOfRoad)
-           
+            
+            self.invaders=Invader.init(scene:self,roadPath:&self.fullRoadPath,gameBoard:self.gameBG,invadersArrayIn:&self.invadersArray)
+            self.invadersArray=self.invaders.loadInvadersToScene()
             
         }
         
-        perform(#selector(invaders.loadInvadersToScene), with: nil, afterDelay: 3)
+       
         
         //perform(#selector(loadInvadersToScene), with: nil, afterDelay: 3)
         //Timer.scheduledTimer(timeInterval: TimeInterval(3), target: self, selector:Selector("loadInvadersToScene:"), userInfo:nil, repeats: false)
@@ -611,52 +482,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
      ------
   tank-----
  */
-    func makeBullet(ofType bulletType: BulletType) -> SKNode {
-        var bullet: SKNode
-        
-        switch bulletType {
-        case .towerFired:
-            bullet = SKSpriteNode(color: SKColor.red, size: kBulletSize)
-            bullet.name = kTowerFiredBulletName
-            bullet.physicsBody=SKPhysicsBody(rectangleOf: CGSize(width: 10, height: 10))
-            bullet.physicsBody?.isDynamic=true
-            bullet.physicsBody?.categoryBitMask=kShipFiredBulletCategory
-            bullet.physicsBody?.contactTestBitMask=kShipCategory
-            bullet.physicsBody?.collisionBitMask=kShipCategory
-        case .invaderFired:
-            bullet = SKSpriteNode(color: SKColor.magenta, size: kBulletSize)
-            bullet.name = kInvaderFiredBulletName
-            bullet.physicsBody=SKPhysicsBody(rectangleOf: CGSize(width: 10, height: 10))
-            bullet.physicsBody?.isDynamic=true
-            bullet.physicsBody?.categoryBitMask=kInvaderFiredBulletCategory
-            bullet.physicsBody?.contactTestBitMask=kInvaderCategory
-            bullet.physicsBody?.collisionBitMask=kInvaderCategory
-            break
-        }
-        
-        return bullet
-    }
-    
-    
-    func fireBullet(bullet: SKNode, toDestination destination: CGPoint, withDuration duration: CFTimeInterval, andSoundFileName soundName: String) {
-        // 1
-        let bulletAction = SKAction.sequence([
-            SKAction.move(to: destination, duration: duration),
-            SKAction.wait(forDuration: 3.0 / 60.0),
-            SKAction.removeFromParent()
-            ])
-        
-        // 2
-        let soundAction = SKAction.playSoundFileNamed(soundName, waitForCompletion: true)
-        
-        // 3
-        bullet.run(SKAction.group([bulletAction, soundAction]))
-        
-        // 4
-       
-        gameBG.addChild(bullet)
-    }
-    
+  
     
     
     
