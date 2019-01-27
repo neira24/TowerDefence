@@ -30,8 +30,8 @@ HP ×Speed=FRQ1×ATK1×ELP1+FRQ2×ATK2×ELP2+···
  Difficulty < ST1+ST2+ST3+···
  
  Cost1 + Cost2 + Cost3 + · · · ≤ Money
-
- 
+Game structure architecture
+ https://www.oreilly.com/library/view/ios-swift-game/9781491920794/ch01.html
  */
 import SpriteKit
 import GameplayKit
@@ -87,6 +87,7 @@ class Tower {
     var attackTime=1.0 as Double
     var attackArea=2
     var cost=1000
+    var nextAttack:TimeInterval=0.0
     
     public init(type:TowerType){
         
@@ -97,6 +98,7 @@ class Tower {
             power=20
             attackTime=1
             cost=200
+            nextAttack=0.0
             
         }
         if(type==TowerType.Tower){
@@ -105,7 +107,7 @@ class Tower {
             power=20
             attackTime=1
             cost=200
-            
+            nextAttack=0.0
         }
         if(type==TowerType.Castle){
             attackArea=2
@@ -113,6 +115,7 @@ class Tower {
             power=20
             attackTime=1
             cost=200
+            nextAttack=0.0
             
         }
         if(type==TowerType.Fort){
@@ -121,6 +124,7 @@ class Tower {
             power=20
             attackTime=1
             cost=200
+            nextAttack=0.0
             
         }
         if(type==TowerType.SAM){
@@ -129,7 +133,7 @@ class Tower {
             power=20
             attackTime=1
             cost=200
-            
+            nextAttack=0.0
             
         }
         
@@ -153,10 +157,12 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
     var bestScore: SKLabelNode!
     var playButton: SKShapeNode!
     var game:GameManager!
+    var road:Road!
+    var invaders:Invader!
     var currentScore: SKLabelNode!
     var gameBG: SKShapeNode!
     var invadersArray:[SKNode]=[]
-    var towersInUseArray:[(node:SKShapeNode, x:Int,y:Int,towerType:TowerType,sqType: SquareType,health:Int?,towerTop:SKSpriteNode?)]=[]
+    var towersInUseArray:[(node:SKShapeNode, x:Int,y:Int,towerType:TowerType,sqType: SquareType,health:Int?,towerTop:SKSpriteNode?,nextAttack:TimeInterval?)]=[]
     var gameArray: [(node:SKShapeNode, x:Int,y:Int,towerType:TowerType,sqType: SquareType,health:Int?,towerTop:SKSpriteNode?)]=[]
     let kTowerFiredBulletName = "towerFiredBullet"
     let kInvaderFiredBulletName = "invaderFiredBullet"
@@ -169,7 +175,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
     let kShipCategory: UInt32 = 0x1 << 2
     let kSceneEdgeCategory: UInt32 = 0x1 << 3
     let kInvaderFiredBulletCategory: UInt32 = 0x1 << 4
-
+    var lastFired:TimeInterval = 0.0
     
     
     override func didMove(to view: SKView) {
@@ -179,9 +185,9 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
        initializeMenu()
        game=GameManager(scene:self)
        initializeGameView()
-     
-        
-     
+       road=Road()
+        invaders=Invader(scene:self,roadPath:&fullRoadPath,gameBoard:gameBG,invadersArrayIn:&invadersArray)
+    
     }
  
     func didBegin(_ contact: SKPhysicsContact) {
@@ -256,13 +262,13 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
             
                                     let bullet=makeBullet(ofType: .towerFired)
                                     bullet.position=CGPoint(
-                                        x:tower.node.position.x,
-                                        y:tower.node.position.y+tower.node.frame.height-bullet.frame.size.height / 2
+                                        x:tower.towerTop!.position.x,
+                                        y:tower.towerTop!.position.y+tower.towerTop!.frame.height-bullet.frame.size.height / 2
                                     )
             
                                     let bulletDestination=CGPoint(
-                                        x:invadersArray.last?.position.y ?? tower.node.position.x,
-                                        y:frame.size.height+bullet.frame.size.height/2
+                                        x:invadersArray.last?.position.x ?? tower.node.position.x,
+                                        y:invadersArray.last?.position.y ?? frame.size.height+bullet.frame.size.height/2
             
             
                                     )
@@ -272,13 +278,36 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                 //SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
                 //vaata yle
                 
-                tower.towerTop!.zRotation=angle+CGFloat(M_PI*0.5)
+                tower.towerTop!.zRotation=angle+CGFloat(.pi*0.5)
+                let tower2 = Tower(type:tower.towerType)
+              
+                if(currentTime>tower.nextAttack!){
+                  fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration:tower2.attackTime, andSoundFileName: "Cannon+2.wav")
+                
+                    
+                        
+                        let index=towersInUseArray.firstIndex { (item) -> Bool in
+                            
+                            return item.node==tower.node
+                        }
+                    towersInUseArray.remove(at:index!)
+                    towersInUseArray.append((node:tower
+                        .node, x: tower
+                            .x, y: tower
+                                .y, towerType: tower
+                                    .towerType, sqType: tower
+                                        .sqType, health: tower
+                                            .health, towerTop: tower
+.towerTop, nextAttack: currentTime+5))
+                   
+                }
+                
             }
             
-                                    let tower = Tower(type:tower.towerType)
             
             
-                                   // fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration:tower.attackTime, andSoundFileName: "Cannon+2.wav")
+            
+         
 
             
         }
@@ -319,105 +348,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         self.addChild(playButton)
     }
     //Remove from here
-    
-    @objc func loadInvadersToScene(){
-        let countOfInvaders=Int.random(in: 3 ... 10)
-        
-        for _ in 0...countOfInvaders{
-            var tank: SKNode
-            let randomX=Int.random(in: 0 ... 300)
-            let randomY=Int.random(in: 0 ... 400)
-         
-            tank=self.makeInvader(ofType: InvaderType.tank,pos: CGPoint(x:randomX, y:randomY ))
-            tank.position=CGPoint(x:randomX, y:randomY )
-           // gameArray.append((tank as! SKShapeNode,2,2,SquareType.Empty,100))
-           // gameBG.addChild(tank)
-            
-            gameBG.addChild(tank)
-            
-           
-            invadersArray.append(tank)
-        
-        }
-        for invader in invadersArray{
-             perform(#selector(moveInvaders), with:invader, afterDelay: 3)
-        }
-        
-   
-        
-    
-    }
-    
-    @objc func moveInvaders(invader:SKNode){
-        //https://www.raywenderlich.com/2250-how-to-make-a-line-drawing-game-with-sprite-kit-and-swift
-       
-        var lastPath = CGPoint()
-      
-        var actionSequence:[SKAction]=[]
-        //Wait for first waypoiint to be traveled through then add next line to travel, and then next. You have to wait
-        
-   
-        
-        for point in fullRoadPath{
-            
-            if(lastPath.x==0 && lastPath.y==0){
-                 let path = UIBezierPath()
-                
-                path.move(to:(invader.position))
-                path.addLine(to:point)
-                lastPath=point
-                let followLine = SKAction.follow(path.cgPath, asOffset: false, orientToPath:true, speed: 50.0)
-                actionSequence.append(followLine)
-                  let shape = SKShapeNode()
-                shape.path = path.cgPath
-                shape.strokeColor = UIColor.white
-                shape.lineWidth = 4
-                gameBG.addChild(shape)
-                
-            }else{
-                    let path = UIBezierPath()
-                     path.move(to:lastPath)
-                     path.addLine(to: point)
-                     lastPath=point
-                     let followLine = SKAction.follow(path.cgPath, asOffset: false, orientToPath:true, speed: 50.0)
-                     actionSequence.append(followLine)
-                  let shape = SKShapeNode()
-                        shape.path = path.cgPath
-                        shape.strokeColor = UIColor.white
-                    shape.lineWidth = 4
-                    gameBG.addChild(shape)
-            }
-            
-            
-        }
-       
-        
-      
-        //https://www.hackingwithswift.com/read/14/4/whack-to-win-skaction-sequences
- 
-           invader.run(SKAction.sequence(actionSequence))
-        
-    }
-    
-    
-    func loadInvaderTextures(ofType invaderType: InvaderType) -> [SKTexture] {
-        
-        var prefix: String
-        
-        switch(invaderType) {
-        case .defaulInfantry:
-            prefix = "InvaderDefault"
-        case .tank:
-            prefix = "InvaderTank"
-        case .chopper:
-            prefix = "InvaderChopper"
-        }
-        
-        // 1
-        return [SKTexture(imageNamed: String(format: "%@_00.png", prefix)),
-                SKTexture(imageNamed: String(format: "%@_01.png", prefix))]
-    }
-    
+
     func loadTowerTextures(ofType towerType: TowerType) -> [SKTexture] {
         
         var prefix: String
@@ -444,36 +375,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         return [SKTexture(imageNamed: String(format: "%@_00.png", prefix)),
                 SKTexture(imageNamed: String(format: "%@_01.png", prefix))]
     }
-    
-    func makeInvader(ofType invaderType:InvaderType, pos:CGPoint)->SKNode{
-        
-        let invaderTextures = loadInvaderTextures(ofType: invaderType)
-        
-        // 2
-        let invader = SKSpriteNode(texture: invaderTextures[0])
-        invader.name = InvaderType.name
-        invader.userData=NSMutableDictionary()
-        invader.position=pos
-        
-        invader.userData?.setValue(100, forKey: "health")
-        
-        // 3
-        //invader.run(SKAction.repeatForever(SKAction.animate(with: invaderTextures, timePerFrame: timePerMove)))
-        
-        // invaders' bitmasks setup
-        invader.physicsBody = SKPhysicsBody(rectangleOf: invader.frame.size)
-        invader.physicsBody!.isDynamic = false
-        invader.physicsBody!.categoryBitMask = kInvaderCategory
-        invader.physicsBody!.contactTestBitMask = kShipFiredBulletCategory
-        invader.physicsBody!.collisionBitMask = 0
-        
-   
-        return invader
-        
-        
-        
-    }
-    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event:UIEvent?){
        
@@ -538,7 +439,7 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
                         
                         
                         gameArray.insert((node,x,y,TowerType.Castle,SquareType.Tower,health,invader), at: index!)
-                        towersInUseArray.append((node,x,y,TowerType.Castle,SquareType.Tower,health,invader))
+                        towersInUseArray.append((node,x,y,TowerType.Castle,SquareType.Tower,health,invader,0.0))
 //                        let bullet=makeBullet(ofType: .towerFired)
 //                        bullet.position=CGPoint(
 //                            x:location.x,
@@ -622,10 +523,15 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
             self.gameBG.run(SKAction.scale(to: 1, duration: 0.4))
             self.currentScore.run(SKAction.scale(to: 1, duration: 0.4))
             self.game.initGame()
-            self.createRoad()
+            
+            self.road.createRoad(gameArray: &self.gameArray, fullRoadPath: &self.fullRoadPath, endOfRoad: &self.endOfRoad)
+           
             
         }
-        perform(#selector(loadInvadersToScene), with: nil, afterDelay: 3)
+        
+        perform(#selector(invaders.loadInvadersToScene), with: nil, afterDelay: 3)
+        
+        //perform(#selector(loadInvadersToScene), with: nil, afterDelay: 3)
         //Timer.scheduledTimer(timeInterval: TimeInterval(3), target: self, selector:Selector("loadInvadersToScene:"), userInfo:nil, repeats: false)
      
     }
@@ -655,103 +561,6 @@ class GameScene: SKScene,SKPhysicsContactDelegate{
         
         
     }
-    
-    private func loadRoadTexture()-> SKTexture{
-        
-        var prefix: String
-        
-        prefix=String(Int.random(in: 1 ... 8))
-        
-        
-        // 1
-        let imgName=String(format:"road_%@.png", prefix)
-        return SKTexture(imageNamed:imgName)
-    }
-    
-        
-        
-    
-    
-    private func createRoad(){
-   //     https://medium.freecodecamp.org/how-to-make-your-own-procedural-dungeon-map-generator-using-the-random-walk-algorithm-e0085c8aa9a
-        var dimensions=16 //grid width and height
-        var dimensionRow=16
-        var dimensionColumn=8
-        var   maxNumOfPaths=16 //max number of different paths
-        var   maxLength=8 //max length of one [][][] three squares
-         var   currentRow=0 //Int(floor(Float.random(in: 0 ... 16)))
-         var   currentColumn=Int(floor(Float.random(in: 1 ... 16)))
-         let   directions = [(-1, 0), (1, 0), (0, -1), (0, 1)] //up,down,left,right
-        var   lastDirection:(Int,Int) = (0,0)
-        var  randomDirection: (Int,Int)
-        
-        while (dimensionColumn>0) && (dimensionRow>0) && (maxNumOfPaths>0) && (maxLength>0) {
-            var isTrue:Bool
-          
-            repeat{
-                
-               randomDirection=directions[Int.random(in: 0 ... 3)]
-                isTrue=false
-                
-                if (((randomDirection.0 == lastDirection.0 * -1) && (randomDirection.1 == lastDirection.1 * -1)) || ((randomDirection.0 == lastDirection.0) && (randomDirection.1 == lastDirection.1))){
-                    isTrue=true
-                }
-            
-            }while  isTrue == true; do {
-                
-                let randomLength = Int(ceil(Double.random(in: 10 ... 20)))
-                var currentLength = 0
-                
-                
-                for i in 0 ... randomLength {
-                    
-                    if (((currentRow == 0) && (randomDirection.0 == -1)) ||
-                        ((currentColumn == 0) && (randomDirection.0 == -1)) ||
-                        ((currentRow == dimensionRow - 1) && (randomDirection.0 == 1)) ||
-                        ((currentColumn == dimensionColumn - 1) && (randomDirection.0 == 1))) {
-                        break;
-                    
-                    }else{
-                        
-                        let index=gameArray.firstIndex { (item) -> Bool in
-                            
-                            return (item.x,item.y) == (currentRow,currentColumn)
-                        }
-                        if index != nil{
-                            
-                        gameArray[index!].node.fillColor=UIColor.white
-                        gameArray[index!].node.fillTexture=loadRoadTexture()
-                            
-                            gameArray.remove(at: index!); gameArray.insert((gameArray[index!].node,gameArray[index!].x,gameArray[index!].y,TowerType.Destroyed,SquareType.Road,gameArray[index!].health,nil), at: index!)
-                            fullRoadPath.append(gameArray[index!].node.position)
-                        
-                        }
-                        currentRow=currentRow + randomDirection.0
-                        currentColumn=currentColumn + randomDirection.1
-                        currentLength=currentLength + 1
-                        endOfRoad=(currentRow,currentColumn)
-                       
-                    }
-                    
-                }
-                if currentLength > 0{
-                    
-                    lastDirection = randomDirection
-                    
-                    maxNumOfPaths = maxNumOfPaths - 1
-                    
-                }
-                
-                
-                
-            }
-            
-        }
-        
-        print("Last direction %@ %@",endOfRoad.0 , endOfRoad.1)
-
-    }
-    
     
     private func createGameBoard(width: Int,height: Int){
         

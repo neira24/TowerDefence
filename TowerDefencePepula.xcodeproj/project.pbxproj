@@ -20,6 +20,8 @@
 		480E8BD621FA491100BD453F /* road_8.png in Resources */ = {isa = PBXBuildFile; fileRef = 480E8BD521FA491100BD453F /* road_8.png */; };
 		480E8BD821FA5CC800BD453F /* Cannon_00.png in Resources */ = {isa = PBXBuildFile; fileRef = 480E8BD721FA5CC800BD453F /* Cannon_00.png */; };
 		480E8BDA21FA694F00BD453F /* Tower_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 480E8BD921FA694F00BD453F /* Tower_01.png */; };
+		480E8BDF21FDE13800BD453F /* Road.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E8BDE21FDE13800BD453F /* Road.swift */; };
+		480E8BE121FDF5F600BD453F /* Invader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E8BE021FDF5F600BD453F /* Invader.swift */; };
 		4810B39821EDDD9100C66592 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4810B39721EDDD9100C66592 /* AppDelegate.swift */; };
 		4810B39A21EDDD9100C66592 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4810B39921EDDD9100C66592 /* GameScene.sks */; };
 		4810B39C21EDDD9100C66592 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4810B39B21EDDD9100C66592 /* Actions.sks */; };
@@ -68,6 +70,8 @@
 		480E8BD521FA491100BD453F /* road_8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = road_8.png; sourceTree = "<group>"; };
 		480E8BD721FA5CC800BD453F /* Cannon_00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cannon_00.png; sourceTree = "<group>"; };
 		480E8BD921FA694F00BD453F /* Tower_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tower_01.png; sourceTree = "<group>"; };
+		480E8BDE21FDE13800BD453F /* Road.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Road.swift; sourceTree = "<group>"; };
+		480E8BE021FDF5F600BD453F /* Invader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invader.swift; sourceTree = "<group>"; };
 		4810B39421EDDD9100C66592 /* TowerDefencePepula.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TowerDefencePepula.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4810B39721EDDD9100C66592 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4810B39921EDDD9100C66592 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -182,6 +186,8 @@
 				4810B3A921EDDD9300C66592 /* Info.plist */,
 				4810B3CB21EDDE1600C66592 /* GameManager.swift */,
 				480C228321EF0AAD0009ED89 /* Cannon+2.wav */,
+				480E8BDE21FDE13800BD453F /* Road.swift */,
+				480E8BE021FDF5F600BD453F /* Invader.swift */,
 			);
 			path = TowerDefencePepula;
 			sourceTree = "<group>";
@@ -354,6 +360,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				480E8BDF21FDE13800BD453F /* Road.swift in Sources */,
+				480E8BE121FDF5F600BD453F /* Invader.swift in Sources */,
 				4810B39E21EDDD9100C66592 /* GameScene.swift in Sources */,
 				4810B3CC21EDDE1600C66592 /* GameManager.swift in Sources */,
 				4810B3A021EDDD9100C66592 /* GameViewController.swift in Sources */,
