@@ -55,3 +55,6 @@ https://macsphere.mcmaster.ca/.../Tower%20defense%20games%20-%20Ye%20Li.pdf
 
 ## Extra
 https://guides.github.com/introduction/flow/
+
+## Hot reload
+https://medium.com/@robnorback/the-secret-to-1-second-compile-times-in-xcode-9de4ec8345a1
