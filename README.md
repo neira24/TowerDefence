@@ -58,3 +58,5 @@ https://guides.github.com/introduction/flow/
 
 ## Hot reload
 https://medium.com/@robnorback/the-secret-to-1-second-compile-times-in-xcode-9de4ec8345a1
+
+https://support.yubico.com/support/solutions/articles/15000006469-using-your-yubikey-with-github
